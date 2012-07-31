@@ -2,14 +2,15 @@
 #
 # ownCloud
 #
-# @author Thomas Müller
+# @author Thomas Mueller
 # @copyright 2012 Thomas Müller thomas.mueller@tmit.eu
 #
+TARBALL=$1
 
 # we perform root installation into /var/www
 cd /var/www/
 rm -rf *
-tar -C /tmp -xzf /vagrant/owncloud-owncloud-master.tar.gz
+tar -C /tmp -xzf $TARBALL
 mv /tmp/owncloud-owncloud/* .
 
 # basic setup
@@ -26,6 +27,7 @@ cat > /var/www/config/autoconfig.php <<DELIM
   'adminlogin' => 'admin',
   'adminpass' => 'admin',
   'directory' => '/var/www/data/',
+  'loglevel' => '0',
 );
 DELIM
 

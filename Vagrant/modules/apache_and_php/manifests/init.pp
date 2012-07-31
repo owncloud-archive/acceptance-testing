@@ -20,29 +20,14 @@ class apache_and_php {
     ensure => running,
     require => Package["apache2"],
   }
+
+  define loadmodule () {
+     exec { "/usr/sbin/a2enmod $name" :
+          unless => "/bin/readlink -e /etc/apache2/mods-enabled/${name}.load",
+          notify => Service[apache2]
+     }
+  }
+
+  loadmodule("rewrite":)
 }
-
-class oc_depends {
-  package { "php5-sqlite":
-    ensure => present,
-  }
-
-  package { "php5-gd":
-    ensure => present,
-  }
-
-  package { "wget":
-    ensure => present,
-  }
-}
-
-class oc_master_from_tarball {
-  exec { "installation":
-    command => "/usr/bin/sudo /vagrant/installation.sh",
-  }
-}
-
-include apache_and_php
-include oc_depends
-include oc_master_from_tarball
 
