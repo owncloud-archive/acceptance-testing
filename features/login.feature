@@ -5,4 +5,4 @@ Feature: Login
   Scenario: Login via web browser
     Given I am not logged in
     When I enter my valid credential
-    Then I be able to access my cloud
+    Then I should be able to access my cloud
