@@ -4,7 +4,20 @@ class apache_and_php {
     path    => "/usr/bin"
   }
 
+  file{
+    "/etc/apache2/sites-enabled/000-default":
+      mode => 755,
+      owner => root,
+      group => root,
+      source => "/vagrant/modules/apache_and_php/configurations/default",
+      notify => Service[apache2]
+  }
+
   package { "php5":
+    ensure => present,
+  }
+
+  package { "php5-xdebug":
     ensure => present,
   }
 
@@ -21,13 +34,14 @@ class apache_and_php {
     require => Package["apache2"],
   }
 
-  define loadmodule () {
-     exec { "/usr/sbin/a2enmod $name" :
-          unless => "/bin/readlink -e /etc/apache2/mods-enabled/${name}.load",
-          notify => Service[apache2]
-     }
+
+  define apache::loadmodule () {
+    exec { "/usr/sbin/a2enmod $name" :
+      unless => "/bin/readlink -e /etc/apache2/mods-enabled/${name}.load",
+      notify => Service[apache2]
+    }
   }
 
-  loadmodule("rewrite":)
+  apache::loadmodule{"rewrite":}
 }
 
