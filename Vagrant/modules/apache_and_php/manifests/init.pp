@@ -10,7 +10,8 @@ class apache_and_php {
       owner => root,
       group => root,
       source => "/vagrant/modules/apache_and_php/configurations/default",
-      notify => Service[apache2]
+      notify => Service[apache2],
+      require => Package["apache2"],
   }
 
   package { "php5":

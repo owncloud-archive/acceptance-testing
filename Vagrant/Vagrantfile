@@ -21,8 +21,8 @@ Vagrant::Config.run do |config|
  
   config.vm.define "stable4_on_apache" do |app|
     app.vm.boot_mode = :gui
-    app.vm.network :hostonly, "33.33.33.10"
-    app.vm.host_name = "apache01.local"
+    app.vm.network :hostonly, "33.33.33.11"
+    app.vm.host_name = "apache02.local"
     app.vm.provision :puppet do |puppet|
       puppet.manifests_path = "manifests"
       puppet.module_path  = "modules"

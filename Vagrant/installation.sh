@@ -32,6 +32,6 @@ cat > /var/www/config/autoconfig.php <<DELIM
 DELIM
 
 # trigger installation
-#wget http://localhost/
-wget http://33.33.33.10/
+wget http://localhost/
+#wget http://33.33.33.10/
 
