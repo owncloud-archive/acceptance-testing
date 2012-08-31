@@ -17,7 +17,7 @@ vagrant up master_on_apache
 # setup cucumber - I use rvm here
 #
 source "$HOME/.rvm/scripts/rvm"
-rvm ruby-1.9.2-p290
+rvm ruby-1.9.3-p194
 rvm gemset use oc_acceptance
 
 # let's assume bundler is installed
