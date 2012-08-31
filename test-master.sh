@@ -28,7 +28,7 @@ bundle install
 # fire the bdd test suite
 #
 cd ..
-bundle exec cucumber -f junit -o ./logs/apache HOST=33.33.33.10 features
+bundle exec cucumber -f json -o ./logs/apache HOST=33.33.33.10 features
 #bundle exec cucumber HOST=33.33.34.10 features
 
 #
