@@ -3,7 +3,7 @@ Feature: files
   As a user
   I want to have basic file management
 
-  Backround
+  Background
     Given I am logged in
     # these are the files hosted on demo.owncloud.org
     And I am in the files app
@@ -52,7 +52,7 @@ Feature: files
       | Demo PDF - Alice in Wonderland.pdf               |
       | Demo Textfile - License.txt                      |
 
-  Scenario: create file
+  Scenario: create files and folders
     When I click on the new button
     And I click on the new <type> action
     And I enter <filename>
