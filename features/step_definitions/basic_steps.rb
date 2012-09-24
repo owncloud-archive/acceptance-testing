@@ -6,10 +6,10 @@ Given /^I am logged in$/ do
   # logout - just to be sure
   visit '/index.php?logout=true'
   visit '/'
-  fill_in :user, with: 'admin'
-  fill_in :password, with: "admin"
+  fill_in 'user', with: 'admin'
+  fill_in 'password', with: "admin"
   click_button 'submit'
-  save_page
+  #save_page
   page.should have_selector('a#logout')
 end
 
