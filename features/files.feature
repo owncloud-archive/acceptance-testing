@@ -3,7 +3,7 @@ Feature: files
   As a user
   I want to have basic file management
 
-  Background
+  Background:
     Given I am logged in
     # these are the files hosted on demo.owncloud.org
     And I am in the files app
@@ -28,7 +28,7 @@ Feature: files
     And I should see a new button
     And I should see an upload action
     
-  Scenario: show file actions on hover
+  Scenario Outline: show file actions on hover
     Given I have uploaded the demo files
     And I go to /
     When I hover over <entry>
@@ -52,7 +52,7 @@ Feature: files
       | Demo PDF - Alice in Wonderland.pdf               |
       | Demo Textfile - License.txt                      |
 
-  Scenario: create files and folders
+  Scenario Outline: create files and folders
     When I click on the new button
     And I click on the new <type> action
     And I enter <filename>
@@ -69,7 +69,7 @@ Feature: files
       | folder | httpd/unix-directory | Testfolder             | 0    |
       | folder | httpd/unix-directory | Testfolder with spaces | 0    |
 
-  Scenario: create file and reload
+  Scenario Outline: create file and reload
     When I click on the new button
     And I click on the new <type> action
     And I enter <filename>
@@ -97,7 +97,7 @@ Feature: files
     And I should see an icon for the new file
     And I should see the size of the new file
 
-  Scenario: download file
+  Scenario Outline: download file
     Given I have uploaded the demo files
     And I go to /
     When I hover over <type> <filename>
@@ -120,7 +120,7 @@ Feature: files
       | folder | Music                                            | Music.zip                                        |
       | folder | Photos                                           | Photos.zip                                       |
 
-  Scenario: delete item
+  Scenario Outline: delete item
     Given I have uploaded the demo files
     And I go to /
     When I hover over <type> <filename>
@@ -143,7 +143,7 @@ Feature: files
       | folder | Music                                            |
       | folder | Photos                                           |
 
-  Scenario: upload file
+  Scenario Outline: upload file
     Given I go to /
     When I click on the upload action
     And I choose <type> <filename> to upload in the dialog
@@ -168,7 +168,7 @@ Feature: files
       | folder | httpd/unix-directory | Music                                            | 73705595 | 70.3 MB  |
       | folder | httpd/unix-directory | Photos                                           | 784677   | 766.3 kB |
 
-  Scenario: rename file
+  Scenario Outline: rename file
     Given I have uploaded the demo files
     And I go to /
     When I hover over <oldfile>
