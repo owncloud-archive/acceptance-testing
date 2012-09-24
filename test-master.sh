@@ -38,5 +38,5 @@ bundle exec cucumber -f json -o ./logs/apache.json HOST=33.33.33.10 features
 #
 cd Vagrant
 #vagrant halt master_on_apache
-#vagrant up master_on_lighttpd
+#vagrant halt master_on_lighttpd
 

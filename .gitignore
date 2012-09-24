@@ -1,0 +1,4 @@
+.bundle
+.idea
+Vagrant/.vagrant
+logs
