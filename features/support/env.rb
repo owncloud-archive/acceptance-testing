@@ -1,6 +1,6 @@
 require "bundler/setup"
  
-require 'capybara/mechanize'
+#require 'capybara/mechanize'
 require 'capybara/cucumber'
 
 #
@@ -11,7 +11,7 @@ host= ENV['HOST']
 host ||= '33.33.33.10'
 Capybara.app = host
 Capybara.run_server = false
-Capybara.app_host = host
+Capybara.app_host = "http://#{host}"
 Capybara.default_selector = :css
-Capybara.default_driver = :mechanize
-# Capybara.default_driver = :selenium
+#Capybara.default_driver = :mechanize
+Capybara.default_driver = :selenium
