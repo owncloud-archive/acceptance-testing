@@ -2,6 +2,13 @@ require "bundler/setup"
  
 #require 'capybara/mechanize'
 require 'capybara/cucumber'
+require 'selenium-webdriver'
+
+Capybara.register_driver :selenium do |app|
+  http_client = Selenium::WebDriver::Remote::Http::Default.new
+  http_client.timeout = 200
+  Capybara::Selenium::Driver.new(app, :browser => :firefox, :http_client => http_client)
+end
 
 #
 # app and app_host are set via command line parameter on cucumber call:

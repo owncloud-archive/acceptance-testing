@@ -13,7 +13,9 @@ end
 
 After do |scenario|
   # for demo purpose: always record ;-)
-  headless.video.stop_and_save(video_path(scenario))
+  video= video_path(scenario)
+  puts "Writing video to #{File.expand_path(video)}"
+  headless.video.stop_and_save(video)
 
   #  if scenario.failed?
   #    headless.video.stop_and_save(video_path(scenario))
