@@ -4,7 +4,7 @@ end
 
 When /^I enter my valid credential$/ do
   visit '/'
-  fill_in :user, with: 'admin'
+  fill_in 'user', with: 'admin'
   fill_in 'password', with: 'admin'
   click_button 'submit'
 end
