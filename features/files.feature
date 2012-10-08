@@ -6,11 +6,11 @@ Feature: files
   Background:
     Given I am logged in
     # these are the files hosted on demo.owncloud.org
-    And I am in the files app
+    And I am in the "files" app
 
   Scenario: list files
-    Given I have uploaded the demo files
-    When I go to /
+    Given I have uploaded the "demo" files
+#    When I go to "/"
     Then I should see a list with the following files:
       | httpd/unix-directory | Music                                            | 73705595 | 70.3 MB  |
       | httpd/unix-directory | Photos                                           | 784677   | 766.3 kB |
