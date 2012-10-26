@@ -1,5 +1,6 @@
 source :rubygems
- 
+
+gem 'vagrant' 
 gem 'capybara'
 #gem 'capybara-mechanize', :git => 'git://github.com/JerryWho/capybara-mechanize.git', :branch => 'relative-redirects'
 gem 'selenium-webdriver'
