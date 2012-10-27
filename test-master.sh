@@ -42,28 +42,45 @@ if [ ! `which virtualbox` ]; then
   exit 1
 fi
 
-#
-# first start the vm(s)
-#
-cd Vagrant
-vagrant up master_on_apache
-#vagrant up master_on_lighttpd
+function run_tests {
+	VM_NAME=$1
+	IP=$2
 
-#
-# fire the bdd test suite
-#
-cd ..
-rm -rf logs
-mkdir logs
-bundle exec cucumber -f json -o ./logs/apache.json HOST=33.33.33.10 features
-#bundle exec cucumber HOST=33.33.34.10 features
+	#
+	# first start the vm(s)
+	#
+	cd Vagrant
+	vagrant up $VM_NAME
+	#vagrant up master_on_lighttpd
 
-#
-# bring down the vm
-#
-cd Vagrant
-vagrant halt master_on_apache
-#vagrant halt master_on_lighttpd
+	#
+	# fire the bdd test suite
+	#
+	cd ..
+	rm -rf logs
+	mkdir logs
+	bundle exec cucumber -f json -o ./logs/apache.json HOST=$IP features
+
+	#
+	# webdav tests
+	#
+	if [ ! `which litmus` ]; then
+	  echo "You have to install litmus in order to run the webdav test suite(http://www.webdav.org/neon/litmus/)"
+	else
+	  litmus -k http://$IP admin admin
+	fi
+
+	#
+	# bring down the vm
+	#
+	cd Vagrant
+	vagrant halt $VM_NAME
+	#vagrant halt master_on_lighttpd
+}
+
+
+run_tests master_on_apache 33.33.33.10
+#run_tests master_on_lighttpd 33.33.33.11
 
 #
 # Say good bye
