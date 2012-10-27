@@ -24,7 +24,7 @@ fi
 #
 # Set the gemset and ruby version
 #
-rvm use ruby-1.9.3-p194@oc_acceptance --create
+rvm use ruby-1.9.3@oc_acceptance --create
 
 # let's assume bundler is installed
 #gem install bundler
