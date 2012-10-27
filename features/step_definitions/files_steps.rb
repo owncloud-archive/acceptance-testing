@@ -1,5 +1,4 @@
 Given /^I have uploaded the "([^"]*)" files$/ do |file_set|
-  save_and_open_page
   path= File.join(File.dirname(File.expand_path(__FILE__)), "../../test-data/#{file_set}/*")
   Dir.glob(path) do |file|
     attach_file 'files[]', file
