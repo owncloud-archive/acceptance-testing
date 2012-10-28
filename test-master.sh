@@ -67,7 +67,7 @@ function run_tests {
 	if [ ! `which litmus` ]; then
 	  echo "You have to install litmus in order to run the webdav test suite(http://www.webdav.org/neon/litmus/)"
 	else
-	  litmus -k http://$IP admin admin
+	  litmus -k http://$IP/remote.php/webdav/ admin admin
 	fi
 
 	#
