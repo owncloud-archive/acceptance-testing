@@ -37,7 +37,7 @@ if [ ! `which xvfb-run` ]; then
   echo "You have to install xvfb in order to run the test suite"
   exit 1
 fi
-if [ ! `which virtualbox` ]; then
+if [ ! `which vboxmanage` ]; then
   echo "You have to install virtualbox in order to run the test suite"
   exit 1
 fi
