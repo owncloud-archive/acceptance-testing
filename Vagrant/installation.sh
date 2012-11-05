@@ -11,7 +11,7 @@ TARBALL=$1
 cd /var/www/
 rm -rf *
 tar -C /tmp -xzf $TARBALL
-mv /tmp/owncloud-owncloud/* .
+mv /tmp/owncloud/* .
 
 # basic setup
 mkdir data
