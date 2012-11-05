@@ -2,7 +2,7 @@ class sources::master {
   include wget
 
   wget::fetch { "download-tarball":
-    source => "https://gitorious.org/owncloud/owncloud/archive-tarball/master",
+    source => "https://github.com/owncloud/core/archive/master.tar.gz",
     destination => "/tmp/owncloud-owncloud-master.tar.gz",
     timeout => 0,
   }
