@@ -15,7 +15,7 @@ mv /tmp/owncloud/* .
 
 # basic setup
 mkdir data
-chown www-data:www-data config data apps
+chown -R www-data:www-data config data apps
 
 # create autoconfig for sqlite
 cat > /var/www/config/autoconfig.php <<DELIM
