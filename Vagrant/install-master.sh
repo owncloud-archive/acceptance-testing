@@ -5,13 +5,20 @@
 # @author Thomas Mueller
 # @copyright 2012 Thomas Müller thomas.mueller@tmit.eu
 #
-TARBALL=$1
+cd /tmp
+wget https://github.com/owncloud/3rdparty/archive/master.tar.gz
+mv master.tar.gz 3rdparty.tar.gz
+wget https://github.com/owncloud/core/archive/master.tar.gz
+mv master.tar.gz core.tar.gz
 
 # we perform root installation into /var/www
 cd /var/www/
 rm -rf *
-tar -C /tmp -xzf $TARBALL
-mv /tmp/owncloud/* .
+tar -C /tmp -xzf /tmp/core.tar.gz
+mv /tmp/core-master/* .
+tar -C /tmp -xzf /tmp/3rdparty.tar.gz
+mkdir -p /var/www/3rdparty
+mv /tmp/3rdparty-master/* 3rdparty
 
 # basic setup
 mkdir data
