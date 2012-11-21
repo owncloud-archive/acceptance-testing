@@ -4,6 +4,9 @@ require "bundler/setup"
 require 'capybara/cucumber'
 require 'selenium-webdriver'
 
+Encoding.default_external = Encoding::UTF_8
+Encoding.default_internal = Encoding::UTF_8
+
 Capybara.register_driver :selenium do |app|
   http_client = Selenium::WebDriver::Remote::Http::Default.new
   http_client.timeout = 200

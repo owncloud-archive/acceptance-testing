@@ -1,3 +1,4 @@
+# encoding: utf-8
 Feature: files
   In order to organize my files
   As a user
@@ -7,13 +8,14 @@ Feature: files
     Given I am logged in
     # these are the files hosted on demo.owncloud.org
     And I am in the "files" app
+    And I have uploaded the "demo" files
 
   Scenario: list files
-    Given I have uploaded the "demo" files
 #    When I go to "/"
     Then I should see a list with the following files:
-      | httpd/unix-directory | Music                                            | 73705595 | 70.3 MB  |
-      | httpd/unix-directory | Photos                                           | 784677   | 766.3 kB |
+# TODO upload directories
+#      | httpd/unix-directory | Music                                            | 73705595 | 70.3 MB  |
+#      | httpd/unix-directory | Photos                                           | 784677   | 766.3 kB |
       | text/x-c             | Demo Code - C++.cc                               | 3066     | 3 kB     |
       | text/x-php           | Demo Code - PHP.php                              | 3705     | 3.6 kB   |
       | text/x-script.phyton | Demo Code - Python.py                            | 875      | 875 B    |
@@ -29,17 +31,16 @@ Feature: files
     And I should see an upload action
     
   Scenario Outline: show file actions on hover
-    Given I have uploaded the demo files
-    And I go to /
+#    And I go to /
     When I hover over <entry>
-    Then I should see a rename action for <entry>
-    And I should see a download action for <entry>
+    Then I should see a "Umbenennen" action for <entry>
+    And I should see a "Herunterladen" action for <entry>
     And I should see a delete action for <entry>
     
     Examples:
       | entry                                            |
-      | Music                                            |
-      | Photos                                           |
+#      | Music                                            |
+#      | Photos                                           |
       | Demo Code - C++.cc                               |
       | Demo Code - PHP.php                              |
       | Demo Code - Python.py                            |
@@ -98,7 +99,6 @@ Feature: files
     And I should see the size of the new file
 
   Scenario Outline: download file
-    Given I have uploaded the demo files
     And I go to /
     When I hover over <type> <filename>
     And I click on the download action of <filename>
@@ -121,7 +121,6 @@ Feature: files
       | folder | Photos                                           | Photos.zip                                       |
 
   Scenario Outline: delete item
-    Given I have uploaded the demo files
     And I go to /
     When I hover over <type> <filename>
     And I click on the delete action of <type> <filename>
@@ -169,7 +168,6 @@ Feature: files
       | folder | httpd/unix-directory | Photos                                           | 784677   | 766.3 kB |
 
   Scenario Outline: rename file
-    Given I have uploaded the demo files
     And I go to /
     When I hover over <oldfile>
     And I click on the rename action of <oldfile>
