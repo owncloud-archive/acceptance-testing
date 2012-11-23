@@ -10,15 +10,16 @@ Given /^I have uploaded the "([^"]*)" files?$/ do |file_set|
   end
 end
 
-Then /^I should see a list with the following files:$/ do |table|
-  table.rows.each do |hash|
-    #page.should have_content(hash[0])
-    page.should have_content(hash[1])
-    #page.should have_content(hash[2])
-    page.should have_content(hash[3])
-  end
+Then /^([^"]*) should be of type ([^"]*)$/ do |name, mime|
+    page.should have_xpath("//tr[@data-file=\"#{name}\" and @data-mime=\"#{mime}\"]")
+end
 
-  # table is a | httpd/unix-directory | Photos                                           | 784677   | 766.3 kB |pending
+Then /^([^"]*) should have ([^"]*) bytes size$/ do |name, bytes|
+    page.should have_xpath("//tr[@data-file=\"#{name}\" and @data-size=\"#{bytes}\"]")
+end
+
+Then /^([^"]*) should show a ([^"]*) size$/ do |name, human|
+    page.should have_xpath("//tr[@data-file=\"#{name}\"]//td[@title=\"#{human}\"]")
 end
 
 When /^I should see a new button$/ do

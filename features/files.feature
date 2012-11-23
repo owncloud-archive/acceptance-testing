@@ -9,13 +9,18 @@ Feature: files
     # these are the files hosted on demo.owncloud.org
     And I am in the "files" app
     And I have uploaded the "demo" files
+    # TODO upload directories
 
-  Scenario: list files
+  Scenario Outline: list files
 #    When I go to "/"
-    Then I should see a list with the following files:
-# TODO upload directories
-#      | httpd/unix-directory | Music                                            | 73705595 | 70.3 MB  |
-#      | httpd/unix-directory | Photos                                           | 784677   | 766.3 kB |
+    Then <name> should be of type <mime>
+    Then <name> should have <bytes> bytes size
+    And <name> should show a <human> size
+    And I should see a new button
+    And I should see an upload action
+    
+    Examples:
+      | mime                 | name                                             | bytes    | human    |
       | text/x-c             | Demo Code - C++.cc                               | 3066     | 3 kB     |
       | text/x-php           | Demo Code - PHP.php                              | 3705     | 3.6 kB   |
       | text/x-script.phyton | Demo Code - Python.py                            | 875      | 875 B    |
@@ -27,8 +32,8 @@ Feature: files
       | audio/mpeg           | Demo MP3 - E.J. - Blick Zurück.mp3               | 2998100  | 2.9 MB   |
       | application/pdf      | Demo PDF - Alice in Wonderland.pdf               | 711671   | 695 kB   |
       | text/plain           | Demo Textfile - License.txt                      | 2016     | 2 kB     |
-    And I should see a new button
-    And I should see an upload action
+      | httpd/unix-directory | Music                                            | 73705595 | 70.3 MB  |
+      | httpd/unix-directory | Photos                                           | 784677   | 766.3 kB |
     
   Scenario Outline: show file actions on hover
 #    And I go to /
