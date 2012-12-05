@@ -8,23 +8,31 @@ Vagrant::Config.run do |config|
   config.vm.box_url = "http://files.vagrantup.com/precise32.box"
  
   # config for the apache box
-  config.vm.define "master_on_apache" do |app|
+  config.vm.define "master_with_sqlite_on_apache" do |app|
     app.vm.network :hostonly, "33.33.33.10"
     app.vm.host_name = "apache01.local"
     app.vm.provision :puppet do |puppet|
       puppet.manifests_path = "manifests"
       puppet.module_path  = "modules"
-      puppet.manifest_file = "master_on_apache.pp"
+      puppet.manifest_file = "master_with_sqlite_on_apache.pp"
     end
   end
- 
-  config.vm.define "stable4_on_apache" do |app|
+  config.vm.define "master_with_mysql_on_apache" do |app|
     app.vm.network :hostonly, "33.33.33.11"
-    app.vm.host_name = "apache02.local"
+    app.vm.host_name = "apache01.local"
     app.vm.provision :puppet do |puppet|
       puppet.manifests_path = "manifests"
       puppet.module_path  = "modules"
-      puppet.manifest_file = "stable4_on_apache.pp"
+      puppet.manifest_file = "master_with_mysql_on_apache.pp"
+    end
+  end
+  config.vm.define "master_with_pg_on_apache" do |app|
+    app.vm.network :hostonly, "33.33.33.12"
+    app.vm.host_name = "apache01.local"
+    app.vm.provision :puppet do |puppet|
+      puppet.manifests_path = "manifests"
+      puppet.module_path  = "modules"
+      puppet.manifest_file = "master_with_pg_on_apache.pp"
     end
   end
  
