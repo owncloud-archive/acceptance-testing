@@ -2,49 +2,65 @@
 # vi: set ft=ruby :
 
 Vagrant::Config.run do |config|
- 
+
   # base box and URL where to get it if not present
   config.vm.box = "precise32"
   config.vm.box_url = "http://files.vagrantup.com/precise32.box"
- 
+
+  # Enable and configure the chef solo provisioner
+  config.vm.provision :chef_solo do |chef|
+    # We're going to download our cookbooks from the web
+    chef.recipe_url = "http://files.vagrantup.com/getting_started/cookbooks.tar.gz"
+
+    # Tell chef what recipe to run. In this case, the `vagrant_main` recipe
+    # does all the magic.
+    chef.add_recipe("vagrant_main")
+  end
+
   # config for the apache box
   # TODO: rename master_with_sqlite_on_apache
   config.vm.define "master_on_apache" do |app|
     app.vm.network :hostonly, "33.33.33.10"
     app.vm.host_name = "apache01.local"
-    app.vm.provision :puppet do |puppet|
-      puppet.manifests_path = "manifests"
-      puppet.module_path  = "modules"
-      puppet.manifest_file = "master_on_apache.pp"
+    app.vm.provision :chef_solo do |chef|
+      # This path will be expanded relative to the project directory
+      chef.cookbooks_path = "cookbooks"
+
+      
     end
+#    app.vm.provision :puppet do |puppet|
+#      puppet.manifests_path = "manifests"
+#      puppet.module_path  = "modules"
+#      puppet.manifest_file = "master_on_apache.pp"
+#    end
   end
-  config.vm.define "master_with_mysql_on_apache" do |app|
-    app.vm.network :hostonly, "33.33.33.11"
-    app.vm.host_name = "apache02.local"
-    app.vm.provision :puppet do |puppet|
-      puppet.manifests_path = "manifests"
-      puppet.module_path  = "modules"
-      puppet.manifest_file = "master_with_mysql_on_apache.pp"
-    end
-  end
-  config.vm.define "master_with_pg_on_apache" do |app|
-    app.vm.network :hostonly, "33.33.33.12"
-    app.vm.host_name = "apache02.local"
-    app.vm.provision :puppet do |puppet|
-      puppet.manifests_path = "manifests"
-      puppet.module_path  = "modules"
-      puppet.manifest_file = "master_with_pg_on_apache.pp"
-    end
-  end
- 
-  # config for the lighttpd box
-  config.vm.define "master_on_lighttpd" do |db|
-    db.vm.network :hostonly, "33.33.34.10"
-    db.vm.host_name = "lighttpd01.local"
-    db.vm.provision :puppet do |puppet|
-      puppet.manifests_path = "manifests"
-      puppet.manifest_file = "master_on_lighttpd"
-    end
-  end
- 
+#  config.vm.define "master_with_mysql_on_apache" do |app|
+#    app.vm.network :hostonly, "33.33.33.11"
+#    app.vm.host_name = "apache02.local"
+#    app.vm.provision :puppet do |puppet|
+#      puppet.manifests_path = "manifests"
+#      puppet.module_path  = "modules"
+#      puppet.manifest_file = "master_with_mysql_on_apache.pp"
+#    end
+#  end
+#  config.vm.define "master_with_pg_on_apache" do |app|
+#    app.vm.network :hostonly, "33.33.33.12"
+#    app.vm.host_name = "apache02.local"
+#    app.vm.provision :puppet do |puppet|
+#      puppet.manifests_path = "manifests"
+#      puppet.module_path  = "modules"
+#      puppet.manifest_file = "master_with_pg_on_apache.pp"
+#    end
+#  end
+#
+#  # config for the lighttpd box
+#  config.vm.define "master_on_lighttpd" do |db|
+#    db.vm.network :hostonly, "33.33.34.10"
+#    db.vm.host_name = "lighttpd01.local"
+#    db.vm.provision :puppet do |puppet|
+#      puppet.manifests_path = "manifests"
+#      puppet.manifest_file = "master_on_lighttpd"
+#    end
+#  end
+
 end
