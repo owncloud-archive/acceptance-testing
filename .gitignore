@@ -2,3 +2,5 @@
 .idea
 Vagrant/.vagrant
 logs
+*.swp
+*.DS_Store
