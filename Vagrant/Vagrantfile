@@ -25,14 +25,10 @@ Vagrant::Config.run do |config|
     app.vm.provision :chef_solo do |chef|
       # This path will be expanded relative to the project directory
       chef.cookbooks_path = "cookbooks"
+      chef.roles_path = "roles"
 
-      
+      chef.add_role "server_apache2"
     end
-#    app.vm.provision :puppet do |puppet|
-#      puppet.manifests_path = "manifests"
-#      puppet.module_path  = "modules"
-#      puppet.manifest_file = "master_on_apache.pp"
-#    end
   end
 #  config.vm.define "master_with_mysql_on_apache" do |app|
 #    app.vm.network :hostonly, "33.33.33.11"
