@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: python 
+# Recipe:: python
 #
 # Copyright 2008-2009, Opscode, Inc.
 #
@@ -17,6 +17,21 @@
 # limitations under the License.
 #
 
-package "libapache2-mod-python"
+case node['platform_family']
+when "debian"
+
+  package "libapache2-mod-python"
+
+when "rhel", "fedora"
+
+  package "mod_python" do
+    notifies :run, "execute[generate-module-list]", :immediately
+  end
+end
+
+file "#{node['apache']['dir']}/conf.d/python.conf" do
+  action :delete
+  backup false
+end
 
 apache_module "python"
