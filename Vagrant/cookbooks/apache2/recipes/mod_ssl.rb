@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: ssl
+# Recipe:: ssl 
 #
 # Copyright 2008-2009, Opscode, Inc.
 #
@@ -16,29 +16,25 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-unless node['apache']['listen_ports'].include?("443")
-  node.set['apache']['listen_ports'] = node['apache']['listen_ports'] + ["443"]
-end
 
-ports = node['apache']['listen_ports']
-
-if platform_family?("rhel", "fedora", "suse")
-
+if platform?("centos", "redhat", "fedora")
   package "mod_ssl" do
-    notifies :run, "execute[generate-module-list]", :immediately
+    action :install
+    notifies :run, resources(:execute => "generate-module-list"), :immediately
   end
 
-  file "#{node['apache']['dir']}/conf.d/ssl.conf" do
+  file "#{node[:apache][:dir]}/conf.d/ssl.conf" do
     action :delete
-    backup false
+    backup false 
   end
 end
 
-template "#{node['apache']['dir']}/ports.conf" do
+ports = node[:apache][:listen_ports].include?("443") ? node[:apache][:listen_ports] : [node[:apache][:listen_ports], "443"].flatten
+
+template "#{node[:apache][:dir]}/ports.conf" do
   source "ports.conf.erb"
-  variables :apache_listen_ports => ports.map { |p| p.to_i }.uniq
-  notifies :restart, "service[apache2]"
-  mode 00644
+  variables :apache_listen_ports => ports
+  notifies :restart, resources(:service => "apache2")
 end
 
 apache_module "ssl" do

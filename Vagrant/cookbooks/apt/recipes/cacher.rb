@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: apache2
-# Definition:: apache_conf
+# Cookbook Name:: apt
+# Recipe:: cacher
 #
 # Copyright 2008-2009, Opscode, Inc.
 #
@@ -16,10 +16,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+package "apt-cacher" do
+  action :install
+end
 
-define :apache_conf do
-  template "#{node[:apache][:dir]}/mods-available/#{params[:name]}.conf" do
-    source "mods/#{params[:name]}.conf.erb"
-    notifies :restart, resources(:service => "apache2")
-  end
+service "apt-cacher" do
+  supports :restart => true, :status => false
+  action [ :enable, :start ]
+end
+
+remote_file "/etc/apt-cacher/apt-cacher.conf" do
+  source "apt-cacher.conf"
+  owner "root"
+  group "root"
+  mode 0644
+  notifies :restart, resources(:service => "apt-cacher")
+end
+
+remote_file "/etc/default/apt-cacher" do
+  source "apt-cacher"
+  owner "root"
+  group "root"
+  mode 0644
+  notifies :restart, resources(:service => "apt-cacher")
 end

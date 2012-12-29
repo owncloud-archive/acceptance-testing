@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: apache2
-# Definition:: apache_conf
+# Cookbook Name:: apt
+# Recipe:: proxy
 #
 # Copyright 2008-2009, Opscode, Inc.
 #
@@ -16,10 +16,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+package "apt-proxy" do 
+  action :install
+end
 
-define :apache_conf do
-  template "#{node[:apache][:dir]}/mods-available/#{params[:name]}.conf" do
-    source "mods/#{params[:name]}.conf.erb"
-    notifies :restart, resources(:service => "apache2")
-  end
+service "apt-proxy" do
+  supports :restart => true, :status => false
+  action [ :enable, :start ]
+end
+
+remote_file "/etc/apt-proxy/apt-proxy-v2.conf" do
+  source "apt-proxy-v2.conf"
+  owner "root"
+  group "root"
+  mode 0644
+  notifies :restart, resources(:service => "apt-proxy")
 end
