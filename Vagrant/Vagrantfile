@@ -9,12 +9,9 @@ Vagrant::Config.run do |config|
 
   # Enable and configure the chef solo provisioner
   config.vm.provision :chef_solo do |chef|
-    # We're going to download our cookbooks from the web
-    chef.recipe_url = "http://files.vagrantup.com/getting_started/cookbooks.tar.gz"
-
-    # Tell chef what recipe to run. In this case, the `vagrant_main` recipe
-    # does all the magic.
-    chef.add_recipe("vagrant_main")
+    # This path will be expanded relative to the project directory
+    chef.cookbooks_path = "cookbooks"
+    chef.roles_path = "roles"
   end
 
   # config for the apache box
@@ -23,11 +20,8 @@ Vagrant::Config.run do |config|
     app.vm.network :hostonly, "33.33.33.10"
     app.vm.host_name = "apache01.local"
     app.vm.provision :chef_solo do |chef|
-      # This path will be expanded relative to the project directory
-      chef.cookbooks_path = "cookbooks"
-      chef.roles_path = "roles"
-
       chef.add_role "server_apache2"
+      chef.add_role "owncloud_default"
     end
   end
 #  config.vm.define "master_with_mysql_on_apache" do |app|

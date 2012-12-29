@@ -3,4 +3,5 @@
 Vagrant/.vagrant
 logs
 *.swp
+*.kate-swp
 *.DS_Store
