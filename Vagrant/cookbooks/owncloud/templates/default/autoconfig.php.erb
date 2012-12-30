@@ -1,4 +1,10 @@
 <?php
 $AUTOCONFIG = array (
-<%= @config_data %>
+  'installed' => false,
+  'adminlogin' => '<%= @config_data[:adminlogin] %>',
+  'adminpass' => '<%= @config_data[:adminpass] %>',
+  'directory' => '<%= @config_data[:directory] %>',
+  'loglevel' => <%= @config_data[:loglevel] %>,
+  'dbtype' => '<%= @config_data[:dbtype] %>',
+  'dbtableprefix' => '<%= @config_data[:dbtableprefix] %>',
 );

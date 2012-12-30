@@ -1,12 +1,10 @@
 #
 # Cookbook Name:: owncloud
-# Recipe:: default
+# Recipe:: install
 #
 # Copyright 2012, YOUR_COMPANY_NAME
 #
 # All rights reserved - Do Not Redistribute
 #
 
-package "wget" do
-  action [:install]
-end
+include_recipe "owncloud"

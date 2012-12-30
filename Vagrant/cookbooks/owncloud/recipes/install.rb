@@ -8,6 +8,7 @@
 #
 
 include_recipe "owncloud"
+include_recipe "php::module_gd"
 
 # Copy owncloud folders
 template "/tmp/install-owncloud.sh" do
@@ -22,7 +23,7 @@ end
 # create autoconf.php
 template "/var/www/config/autoconfig.php" do
   source "autoconfig.php.erb"
-  variables :config_data => Dir["/tmp/owncloud-autoconfig/*.conf"].map { |f| IO.read(f) }.join("\n")
+  variables :config_data => node[:owncloud][:config]
   mode 0755
 end
 

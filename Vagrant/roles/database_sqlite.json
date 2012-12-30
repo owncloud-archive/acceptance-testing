@@ -1,0 +1,14 @@
+{
+  "name": "database_sqlite",
+  "default_atributes": {},
+  "override_attributes": {
+    "owncloud": {
+      "dbtype": "sqlite"
+    }
+  },
+  "json_class": "Chef::Role",
+  "description": "Install and configure sqlite",
+  "chef_type": "role",
+  "run_list": [ "recipe[php::module_sqlite3]",
+                "recipe[owncloud::database_sqlite]" ]
+}

@@ -1,1 +1,10 @@
- 
+{
+  "name": "owncloud_default",
+  "default_atributes": {},
+  "override_attributes": { },
+  "json_class": "Chef::Role",
+  "description": "Install ownCloud",
+  "chef_type": "role",
+  "run_list": [ "recipe[owncloud]",
+                "recipe[owncloud::install]" ]
+}

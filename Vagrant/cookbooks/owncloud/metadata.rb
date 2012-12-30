@@ -7,6 +7,8 @@ version          "0.1.0"
 
 recipe            "owncloud", "prepares owncloud installation"
 recipe            "owncloud::install", "installs owncloud"
+recipe            "owncloud::database_sqlite", "installs owncloud sqlite support"
+recipe            "owncloud::server_apache", "installs apache support"
 
 %w{debian ubuntu}.each do |os|
   supports os
@@ -27,7 +29,32 @@ attribute "owncloud/config",
   :description => "Hash of ownCloud configuration",
   :type => "hash"
 
+attribute "owncloud/config/adminlogin",
+  :display_name => "Owncloud admin login",
+  :description => "name of admin",
+  :default => "admin"
+
+attribute "owncloud/config/adminpass",
+  :display_name => "Admin password",
+  :description => "Admin password",
+  :default => "admin"
+
+attribute "owncloud/config/directory",
+  :display_name => "Owncloud directory",
+  :description => "data directory",
+  :default => "/var/www/data"
+
+attribute "owncloud/config/loglevel",
+  :display_name => "Owncloud log level",
+  :description => "which log level should be used",
+  :default => "0"
+
 attribute "owncloud/config/dbtype",
   :display_name => "Owncloud dbtype",
   :description => "which database should be used",
   :default => "sqlite"
+
+attribute "owncloud/config/dbtableprefix",
+  :display_name => "Owncloud dbtableprefix",
+  :description => "which database table prefix should be used",
+  :default => "oc_"
