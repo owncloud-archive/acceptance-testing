@@ -5,12 +5,6 @@ Vagrant::Config.run do |config|
 
   # base box and URL where to get it if not present
   config.vm.box = "precise32"
-  config.vm.box_url = "http://files.vagrantup.com/precise32.box"
-    config.vm.provision :chef_solo do |chef|
-
-    # Update apt before doing anything else
-    chef.add_recipe "apt"
-  end
 
   # config for the apache box
   # TODO: rename master_with_sqlite_on_apache
@@ -18,12 +12,11 @@ Vagrant::Config.run do |config|
     app.vm.network :hostonly, "33.33.33.10"
     app.vm.host_name = "apache01.local"
     app.vm.provision :chef_solo do |chef|
-      # This path will be expanded relative to the project directory
-      chef.roles_path = "roles"
-
-      chef.add_role "server_apache"
-      chef.add_role "database_sqlite"
-      chef.add_role "owncloud_default"
+      # define our setup
+      chef.json = {}
+      
+      # let the recipe do all the rest
+      chef.add_recipe "owncloud"
     end
   end
 #  config.vm.define "master_with_mysql_on_apache" do |app|

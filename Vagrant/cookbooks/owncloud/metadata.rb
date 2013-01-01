@@ -19,10 +19,30 @@ attribute "owncloud",
   :description => "Hash of ownCloud attributes",
   :type => "hash"
 
-attribute "owncloud/branch",
+attribute "owncloud/setup",
+  :display_name => "Owncloud setup hash",
+  :description => "Hash of ownCloud setup",
+  :type => "hash"
+
+attribute "owncloud/setup/branch",
   :display_name => "Owncloud branch",
   :description => "branch of ownCloud repo",
   :default => "master"
+
+attribute "owncloud/setup/webserver",
+  :display_name => "Owncloud webserver",
+  :description => "server serving ownCloud",
+  :default => "apache2"
+
+attribute "owncloud/setup/user_backend",
+  :display_name => "Owncloud user backend",
+  :description => "user backend",
+  :default => "database"
+
+attribute "owncloud/setup/branch",
+  :display_name => "Owncloud group backend",
+  :description => "group backend",
+  :default => "database"
 
 attribute "owncloud/config",
   :display_name => "Owncloud Hash",

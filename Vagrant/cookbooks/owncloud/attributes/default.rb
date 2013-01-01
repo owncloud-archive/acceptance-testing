@@ -1,4 +1,7 @@
-default[:owncloud][:branch] = "master"
+default[:owncloud][:setup][:branch] = "master"
+default[:owncloud][:setup][:webserver] = "apache2"
+default[:owncloud][:setup][:user_backend] = "database"
+default[:owncloud][:setup][:group_backend] = "database"
 default[:owncloud][:config][:adminlogin] = "admin"
 default[:owncloud][:config][:adminpass] = "admin"
 default[:owncloud][:config][:directory] = "/var/www/data"
