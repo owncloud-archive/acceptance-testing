@@ -57,9 +57,9 @@ function run_tests {
 	# fire the bdd test suite
 	#
 	cd ..
-	rm -rf logs
-	mkdir logs
-	bundle exec cucumber -f json -o ./logs/apache.json HOST=$IP features
+	rm -rf logs/$VM_NAME
+	mkdir -p logs
+	bundle exec cucumber -f json -o ./logs/$VM_NAME.json HOST=$IP features
 
 	#
 	# webdav tests
@@ -79,8 +79,8 @@ function run_tests {
 }
 
 
-run_tests master_on_apache 33.33.33.10
-#run_tests master_on_lighttpd 33.33.33.11
+run_tests master_on_apache_with_sqlite 33.33.33.10
+run_tests master_on_apache_with_mysql 33.33.33.11
 
 #
 # Say good bye
