@@ -74,7 +74,32 @@ attribute "owncloud/config/dbtype",
   :description => "which database should be used",
   :default => "sqlite"
 
+attribute "owncloud/config/dbname",
+  :display_name => "Owncloud dbname",
+  :description => "which database should be used",
+  :default => "owncloud"
+
+attribute "owncloud/config/dbuser",
+  :display_name => "Owncloud dbuser",
+  :description => "which database user should be used",
+  :default => "owncloud"
+
+attribute "owncloud/config/dbpass",
+  :display_name => "Owncloud dbpassword",
+  :description => "which database password should be used",
+  :default => "owncloud"
+
+attribute "owncloud/config/dbhost",
+  :display_name => "Owncloud dbhost",
+  :description => "which host should be used",
+  :default => "localhost"
+
 attribute "owncloud/config/dbtableprefix",
   :display_name => "Owncloud dbtableprefix",
   :description => "which database table prefix should be used",
+  :default => "oc_"
+
+attribute "owncloud/config/dbtablespace",
+  :display_name => "Owncloud dbtablespace",
+  :description => "Some Oracle database stuff I guess",
   :default => "oc_"

@@ -9,15 +9,23 @@
 
 #==============================================================================
 # TOC:
+#   0: define database connections etc.
 #   1: install required packages
 #   2: clean up old configuration
 #   3: copy new files
 #   4: install ownCloud
 #   5: create the environment defined in Readme.md
 #------------------------------------------------------------------------------
-# 1: install required packages
+# 0: define database connections etc.
 #==============================================================================
 
+mysql_connection_info = { :host => "localhost", 
+                          :username => 'root', 
+                          :password => node['mysql']['server_root_password']}
+
+#==============================================================================
+# 1: install required packages
+#==============================================================================
 # Update package cache
 include_recipe "apt"
 include_recipe "git"
@@ -48,6 +56,41 @@ include_recipe "php::module_gd"
 case node[:owncloud][:config][:dbtype]
 when "sqlite"
   include_recipe "php::module_sqlite3"
+when "mysql"
+  # Install mysql
+  include_recipe "mysql::server"
+  include_recipe "mysql::client"
+  include_recipe "php::module_mysql"
+  include_recipe "database::mysql"
+  
+  # drop old database and user
+  mysql_database "owncloud" do
+    connection mysql_connection_info
+    action :drop
+  end
+  mysql_database_user "owncloud" do
+    connection mysql_connection_info
+    action :drop
+  end
+  
+  # create new database
+  mysql_database "owncloud" do
+    connection mysql_connection_info
+    action :create
+  end
+
+  # create owncloud user and give rights to do everything
+  mysql_database_user "owncloud" do
+    connection mysql_connection_info
+    password "owncloud"
+    action :create
+  end
+  mysql_database_user "owncloud" do
+    connection mysql_connection_info
+    password "owncloud"
+    database_name "owncloud"
+    action :grant
+  end
 else
   # FIXME: report error!
 end
@@ -140,8 +183,13 @@ execute "Chmodding apps and config" do
   command "chmod g+w /var/www/apps /var/www/config"
 end
 
-# create autoconf.php
+# create autoconf.php and a backup
 template "/var/www/config/autoconfig.php" do
+  source "autoconfig.php.erb"
+  variables :config_data => node[:owncloud][:config]
+  mode 0644
+end
+template "/var/www/config/autoconfig.backup.php" do
   source "autoconfig.php.erb"
   variables :config_data => node[:owncloud][:config]
   mode 0644
