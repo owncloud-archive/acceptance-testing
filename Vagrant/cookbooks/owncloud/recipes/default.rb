@@ -19,9 +19,12 @@
 # 0: define database connections etc.
 #==============================================================================
 
-mysql_connection_info = { :host => "localhost", 
-                          :username => 'root', 
+mysql_connection_info = { :host => "localhost",
+                          :username => 'root',
                           :password => node['mysql']['server_root_password']}
+postgresql_connection_info = { :host => "localhost",
+                               :username => 'postgres',
+                               :password => node['postgresql']['password']['postgres']}
 
 #==============================================================================
 # 1: install required packages
@@ -39,9 +42,9 @@ case node[:owncloud][:setup][:webserver]
 when "apache2"
   include_recipe "apache2"
   include_recipe "apache2::mod_php5"
-  
-  apache_site "default" 
-  
+
+  apache_site "default"
+
   service "apache2" do
     action :restart
   end
@@ -62,7 +65,7 @@ when "mysql"
   include_recipe "mysql::client"
   include_recipe "php::module_mysql"
   include_recipe "database::mysql"
-  
+
   # drop old database and user
   mysql_database "owncloud" do
     connection mysql_connection_info
@@ -72,7 +75,7 @@ when "mysql"
     connection mysql_connection_info
     action :drop
   end
-  
+
   # create new database
   mysql_database "owncloud" do
     connection mysql_connection_info
@@ -87,6 +90,41 @@ when "mysql"
   end
   mysql_database_user "owncloud" do
     connection mysql_connection_info
+    password "owncloud"
+    database_name "owncloud"
+    action :grant
+  end
+when "pgsql"
+  # Install postgresql
+  include_recipe "postgresql::server"
+  include_recipe "postgresql::client"
+  include_recipe "php::module_pgsql"
+  include_recipe "database::postgresql"
+
+  # drop old database and user
+  postgresql_database "owncloud" do
+    connection postgresql_connection_info
+    action :drop
+  end
+  postgresql_database_user "owncloud" do
+    connection postgresql_connection_info
+    action :drop
+  end
+
+  # create new database
+  postgresql_database "owncloud" do
+    connection postgresql_connection_info
+    action :create
+  end
+
+  # create owncloud user and give rights to do everything
+  postgresql_database_user "owncloud" do
+    connection postgresql_connection_info
+    password "owncloud"
+    action :create
+  end
+  postgresql_database_user "owncloud" do
+    connection postgresql_connection_info
     password "owncloud"
     database_name "owncloud"
     action :grant
@@ -113,11 +151,6 @@ directory "/var/www" do
   group "www-data"
   mode 0775
   not_if { File.exists? "/var/www/" }
-end
-
-case node[:owncloud][:config][:dbtype]
-when "mysql"
-  # delete table, recreate it
 end
 
 #==============================================================================
