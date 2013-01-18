@@ -7,6 +7,11 @@ Vagrant::Config.run do |config|
       :server_root_password => "iloverandompasswordsbutthiswilldo",
       :server_repl_password => "iloverandompasswordsbutthiswilldo",
       :server_debian_password => "iloverandompasswordsbutthiswilldo"
+    },
+    :postgresql => {
+      :password => {
+        :postgres => "iloverandompasswordsbutthiswilldo"
+      }
     }
   }
 
@@ -20,12 +25,12 @@ Vagrant::Config.run do |config|
     app.vm.provision :chef_solo do |chef|
       # define our setup
       chef.json = default_chef_json.merge( {} )
-      
+
       # let the recipe do all the rest
       chef.add_recipe "owncloud"
     end
   end
-  
+
   config.vm.define "master_on_apache_with_mysql" do |app|
     app.vm.network :hostonly, "33.33.33.11"
     app.vm.host_name = "apache02.local"
@@ -38,22 +43,30 @@ Vagrant::Config.run do |config|
           }
         }
       } )
-      
+
       # let the recipe do all the rest
       chef.add_recipe "owncloud"
     end
   end
-  
-#  config.vm.define "master_with_pg_on_apache" do |app|
-#    app.vm.network :hostonly, "33.33.33.12"
-#    app.vm.host_name = "apache02.local"
-#    app.vm.provision :puppet do |puppet|
-#      puppet.manifests_path = "manifests"
-#      puppet.module_path  = "modules"
-#      puppet.manifest_file = "master_with_pg_on_apache.pp"
-#    end
-#  end
-#
+
+  config.vm.define "master_on_apache_with_postgresql" do |app|
+    app.vm.network :hostonly, "33.33.33.12"
+    app.vm.host_name = "apache03.local"
+    app.vm.provision :chef_solo do |chef|
+      # define our setup
+      chef.json = default_chef_json.merge( {
+        :owncloud => {
+          :config => {
+            :dbtype => "pgsql"
+          }
+        }
+      } )
+
+      # let the recipe do all the rest
+      chef.add_recipe "owncloud"
+    end
+  end
+
 #  # config for the lighttpd box
 #  config.vm.define "master_on_lighttpd" do |db|
 #    db.vm.network :hostonly, "33.33.34.10"
