@@ -51,7 +51,6 @@ function run_tests {
 	#
 	cd Vagrant
 	vagrant up $VM_NAME
-	#vagrant up master_on_lighttpd
 
 	#
 	# fire the bdd test suite
