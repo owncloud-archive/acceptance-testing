@@ -149,6 +149,24 @@ when "nginx"
   service "nginx" do
     action :restart
   end
+when "lighttpd"
+  package "lighttpd" do
+    action [:install]
+  end
+
+  template "/etc/lighttpd/conf-available/20-owncloud.conf" do
+    source "lighttpd.conf.erb"
+    owner "root"
+    group "root"
+    mode 00644
+  end
+
+  execute "enable ownCloud page in lighttpd" do
+    command "lighttpd-enable-mod owncloud fastcgi"
+  end
+  execute "restart lighttpd" do
+    command "service lighttpd restart"
+  end
 else
   # FIXME: report error
 end
