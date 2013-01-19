@@ -33,25 +33,6 @@ postgresql_connection_info = { :host => "localhost",
 include_recipe "apt"
 include_recipe "git"
 
-# Add wget (for installing)
-package "wget" do
-  action [:install]
-end
-
-case node[:owncloud][:setup][:webserver]
-when "apache2"
-  include_recipe "apache2"
-  include_recipe "apache2::mod_php5"
-
-  apache_site "default"
-
-  service "apache2" do
-    action :restart
-  end
-else
-  # FIXME: report error
-end
-
 include_recipe "php"
 include_recipe "php::module_gd"
 
@@ -136,6 +117,41 @@ end
 # TODO; install additional software
 # Software for user backends?
 # IMAP-Server, FTP-Server, another WebDAV-Server, LDAP?
+
+# Install and fire up web server
+case node[:owncloud][:setup][:webserver]
+when "apache2"
+  include_recipe "apache2"
+  include_recipe "apache2::mod_php5"
+
+  apache_site "default"
+
+  service "apache2" do
+    action :restart
+  end
+when "nginx"
+  include_recipe "nginx"
+  package "php5-fpm" do
+    action [:install]
+  end
+  package "nginx-extras" do
+    action [:install]
+  end
+
+  template "#{node['nginx']['dir']}/sites-available/default" do
+    source "nginx.conf.erb"
+    owner "root"
+    group "root"
+    mode 00644
+    notifies :reload, 'service[nginx]'
+  end
+
+  service "nginx" do
+    action :restart
+  end
+else
+  # FIXME: report error
+end
 
 #==============================================================================
 # 2: clean up old configuration
