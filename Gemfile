@@ -1,6 +1,7 @@
 source :rubygems
 
 gem 'vagrant',                '~> 1.0.5'  # Vagrant sets up the VMs
+gem 'knife-solo',             '~> 0.1.0'  # Managing cookbooks for chef
 gem 'capybara',               '~> 1.1.2'  # integration tests
 gem 'selenium-webdriver',     '~> 2.27.0' # use selenium for controlling the browser
 gem 'rspec',                  '~> 2.11.0' # test framework
