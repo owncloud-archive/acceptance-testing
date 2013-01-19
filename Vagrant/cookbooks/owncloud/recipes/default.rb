@@ -10,11 +10,12 @@
 #==============================================================================
 # TOC:
 #   0: define database connections etc.
-#   1: install required packages
-#   2: clean up old configuration
-#   3: copy new files
-#   4: install ownCloud
-#   5: create the environment defined in Readme.md
+#   1: create the environment (without ownCloud)
+#   2: set up web server
+#   3: clean up old configuration
+#   4: copy new files
+#   5: install ownCloud
+#   6: create the environment defined in Readme.md
 #------------------------------------------------------------------------------
 # 0: define database connections etc.
 #==============================================================================
@@ -27,7 +28,7 @@ postgresql_connection_info = { :host => "localhost",
                                :password => node['postgresql']['password']['postgres']}
 
 #==============================================================================
-# 1: install required packages
+# 1: create the environment (without ownCloud)
 #==============================================================================
 # Update package cache
 include_recipe "apt"
@@ -114,11 +115,18 @@ else
   # FIXME: report error!
 end
 
-# TODO; install additional software
-# Software for user backends?
-# IMAP-Server, FTP-Server, another WebDAV-Server, LDAP?
+# Set up software that is required for user authentication etc.
+case node[:owncloud][:setup][:user_backend]
+when "ldap"
+  # TODO: install ldap, prepare everything
+  # The cookbooks "openldap" and "ldapknife" might help
 
-# Install and fire up web server
+  # Don't forget to create admin, user{1-3} as defined in README.md
+end
+
+#==============================================================================
+# 2: set up web server
+#==============================================================================
 case node[:owncloud][:setup][:webserver]
 when "apache2"
   include_recipe "apache2"
@@ -172,7 +180,7 @@ else
 end
 
 #==============================================================================
-# 2: clean up old configuration
+# 3: clean up old configuration
 #==============================================================================
 directory "/var/www/" do
   action :delete
@@ -188,7 +196,7 @@ directory "/var/www" do
 end
 
 #==============================================================================
-# 3: copy new files
+# 4: copy new files
 #==============================================================================
 
 # clone repositories
@@ -224,14 +232,12 @@ execute "Copy 3rdparty folder" do
   command "cp -ar /usr/local/src/owncloud-3rdparty /var/www/3rdparty"
 end
 
-# TODO: copy apps
-
-
-
-
+execute "Copy apps folder" do
+  command "cp -ar /usr/local/src/owncloud-apps /var/www/apps2"
+end
 
 #==============================================================================
-# 4: install ownCloud
+# 5: install ownCloud
 #==============================================================================
 
 # create data dir, set rights of apps and config dir
@@ -262,6 +268,8 @@ template "/var/www/config/autoconfig.backup.php" do
   mode 0644
 end
 
+# TODO: create a config.php to add apps2, user backends, ...
+
 # install owncloud
 http_request "install ownCloud" do
   url "http://localhost/"
@@ -269,8 +277,11 @@ http_request "install ownCloud" do
 end
 
 #==============================================================================
-# 5: Create the environment
+# 6: Create the environment (with ownCloud)
 #==============================================================================
 
-# TODO: use system calls or ownCloud provisioning API to create the environment.
-
+case node[:owncloud][:setup][:user_backend]
+when "database"
+  # TODO: use ownCloud Provisioning API to add users etc as defined in
+  # README.md
+end
