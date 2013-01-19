@@ -18,7 +18,9 @@ Vagrant::Config.run do |config|
   # base box and URL where to get it if not present
   config.vm.box = "precise32"
 
-  # config for the apache box
+  #============================================================================
+  # Apache boxes
+  #============================================================================
   config.vm.define "master_on_apache_with_sqlite" do |app|
     app.vm.network :hostonly, "33.33.33.10"
     app.vm.host_name = "apache01.local"
@@ -67,14 +69,70 @@ Vagrant::Config.run do |config|
     end
   end
 
-#  # config for the lighttpd box
-#  config.vm.define "master_on_lighttpd" do |db|
-#    db.vm.network :hostonly, "33.33.34.10"
-#    db.vm.host_name = "lighttpd01.local"
-#    db.vm.provision :puppet do |puppet|
-#      puppet.manifests_path = "manifests"
-#      puppet.manifest_file = "master_on_lighttpd"
-#    end
-#  end
+  #============================================================================
+  # Lighttpd boxes
+  #============================================================================
 
+  #============================================================================
+  # Nginx boxes
+  #============================================================================
+  config.vm.define "master_on_nginx_with_sqlite" do |app|
+    app.vm.network :hostonly, "33.33.35.10"
+    app.vm.host_name = "nginx01.local"
+    app.vm.provision :chef_solo do |chef|
+      # define our setup
+      chef.json = default_chef_json.merge( {
+        :owncloud => {
+          :setup => {
+            :webserver => "nginx"
+          }
+        }
+      } )
+
+      # let the recipe do all the rest
+      chef.add_recipe "owncloud"
+    end
+  end
+
+  config.vm.define "master_on_nginx_with_mysql" do |app|
+    app.vm.network :hostonly, "33.33.35.11"
+    app.vm.host_name = "nginx02.local"
+    app.vm.provision :chef_solo do |chef|
+      # define our setup
+      chef.json = default_chef_json.merge( {
+        :owncloud => {
+          :setup => {
+            :webserver => "nginx"
+          },
+          :config => {
+            :dbtype => "mysql"
+          }
+        }
+      } )
+
+      # let the recipe do all the rest
+      chef.add_recipe "owncloud"
+    end
+  end
+
+  config.vm.define "master_on_nginx_with_postgresql" do |app|
+    app.vm.network :hostonly, "33.33.35.12"
+    app.vm.host_name = "nginx03.local"
+    app.vm.provision :chef_solo do |chef|
+      # define our setup
+      chef.json = default_chef_json.merge( {
+        :owncloud => {
+          :setup => {
+            :webserver => "nginx"
+          },
+          :config => {
+            :dbtype => "pgsql"
+          }
+        }
+      } )
+
+      # let the recipe do all the rest
+      chef.add_recipe "owncloud"
+    end
+  end
 end
