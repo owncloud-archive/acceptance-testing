@@ -87,6 +87,12 @@ if [ $# -eq 1 ]; then
     run_tests master_on_apache_with_sqlite
     run_tests master_on_apache_with_mysql
     run_tests master_on_apache_with_postgresql
+    run_tests master_on_lighttpd_with_sqlite
+    run_tests master_on_lighttpd_with_mysql
+    run_tests master_on_lighttpd_with_postgresql
+    run_tests master_on_nginx_with_sqlite
+    run_tests master_on_nginx_with_mysql
+    run_tests master_on_nginx_with_postgresql
 else
     CFG=$1_on_$3_with_$2
     echo Start testing $CFG
