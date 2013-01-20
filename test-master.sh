@@ -7,7 +7,7 @@
 # @copyright 2012-2013 Jakob Sack
 #
 
-# Ensure wir are in the correct folder
+# Ensure we are in the correct folder
 cd `dirname $0`
 
 #
@@ -78,6 +78,7 @@ function run_tests {
     echo "Bring it down ..."
 	cd Vagrant
 	vagrant halt $VM_NAME
+	cd ..
 }
 
 #
