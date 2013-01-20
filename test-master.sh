@@ -59,7 +59,7 @@ function run_tests {
 	echo "Running the bdd test suite ..."
 	cd ..
 	rm -rf logs/$VM_NAME
-	mkdir -p logs/$VM_NAME
+	mkdir -p logs
 	bundle exec cucumber -f json -o ./logs/$VM_NAME.json -f pretty HOST=$IP features
 
 	#
