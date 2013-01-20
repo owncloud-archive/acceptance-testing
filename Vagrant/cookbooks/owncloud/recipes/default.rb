@@ -248,27 +248,52 @@ directory "/var/www/data" do
   group "www-data"
 end
 
+directory "/var/www/apps3" do
+  action :create
+  mode 0755
+  owner "www-data"
+  group "www-data"
+end
+
 execute "Chowning apps and config" do
-  command "chgrp www-data /var/www/apps /var/www/config"
+  command "chgrp www-data /var/www/config"
 end
 
 execute "Chmodding apps and config" do
-  command "chmod g+w /var/www/apps /var/www/config"
+  command "chmod g+w /var/www/config"
 end
 
 # create autoconf.php and a backup
 template "/var/www/config/autoconfig.php" do
   source "autoconfig.php.erb"
   variables :config_data => node[:owncloud][:config]
+  owner "www-data"
+  group "www-data"
   mode 0644
 end
 template "/var/www/config/autoconfig.backup.php" do
   source "autoconfig.php.erb"
   variables :config_data => node[:owncloud][:config]
+  owner "www-data"
+  group "www-data"
   mode 0644
 end
 
-# TODO: create a config.php to add apps2, user backends, ...
+# create autoconf.php and a backup
+template "/var/www/config/config.php" do
+  source "config.php.erb"
+  variables :setup_data => node[:owncloud][:setup]
+  owner "www-data"
+  group "www-data"
+  mode 0644
+end
+template "/var/www/config/config.backup.php" do
+  source "config.php.erb"
+  variables :setup_data => node[:owncloud][:setup]
+  owner "www-data"
+  group "www-data"
+  mode 0644
+end
 
 # install owncloud
 http_request "install ownCloud" do
