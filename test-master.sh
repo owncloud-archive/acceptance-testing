@@ -83,7 +83,7 @@ function run_tests {
 #
 # evaluate args
 #
-if [ $# -eq 1 ]; then
+if [ $# -eq 0 ]; then
     run_tests master_on_apache_with_sqlite
     run_tests master_on_apache_with_mysql
     run_tests master_on_apache_with_postgresql
