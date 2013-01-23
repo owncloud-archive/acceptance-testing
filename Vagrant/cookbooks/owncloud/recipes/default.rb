@@ -34,6 +34,10 @@ postgresql_connection_info = { :host => "localhost",
 include_recipe "apt"
 include_recipe "git"
 
+package "curl" do
+  action [:install]
+end
+
 include_recipe "php"
 include_recipe "php::module_gd"
 
@@ -307,6 +311,41 @@ end
 
 case node[:owncloud][:setup][:user_backend]
 when "database"
-  # TODO: use ownCloud Provisioning API to add users etc as defined in
-  # README.md
+  # enable provisioning API
+  template "/var/www/enable_provisioning_api.php" do
+    source "enable_provisioning_api.php.erb"
+    variables Hash.new
+    owner "www-data"
+    group "www-data"
+    mode 0644
+  end
+  http_request "enabling provisioning_api" do
+    url "http://localhost/enable_provisioning_api.php"
+    message :some => "value" # Hash.new
+  end
+  file "var/www/enable_provisioning_api.php" do
+    action :delete
+  end
+
+  # Create users
+  (1..3).each do |i|
+    execute "Creating user#{i}" do
+      command "curl -X POST -u admin:admin -d \"userid=user#{i}&" +
+              "password=user#{i}\" localhost/ocs/v1.php/cloud/users"
+    end
+  end
+
+  # Create group
+  execute "Creating group1" do
+    command "curl -X POST -u admin:admin -d \"groupid=group1\"" +
+            " localhost/ocs/v1.php/cloud/groups"
+  end
+
+  # Put user1 and user2 in group1
+  (1..2).each do |i|
+    execute "Putting user#{i} in group1" do
+      command "curl -X POST -u admin:admin -d \"groupid=group1&\"" +
+              " localhost/ocs/v1.php/cloud/users/user#{i}/groups"
+    end
+  end
 end
