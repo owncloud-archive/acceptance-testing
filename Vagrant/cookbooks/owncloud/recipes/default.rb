@@ -203,41 +203,57 @@ end
 # 4: copy new files
 #==============================================================================
 
-# clone repositories
-directory "/usr/local/src" do
-  action :create
-  recursive true
-end
+case node[:owncloud][:setup][:source]
+when "local"
+  # Copy files
+  execute "copy core folder" do
+    command "cp -Lpr /vagrant/localsrc/core/* /var/www"
+  end
 
-git "/usr/local/src/owncloud-core" do
-  repository "git://github.com/owncloud/core.git"
-  reference node[:owncloud][:setup][:branch]
-  action :sync
-end
+  execute "Link apps folder" do
+    command "cp -Lpr /vagrant/localsrc/apps /var/www/apps2"
+  end
 
-git "/usr/local/src/owncloud-apps" do
-  repository "git://github.com/owncloud/apps.git"
-  reference node[:owncloud][:setup][:branch]
-  action :sync
-end
+  execute "Link core folder" do
+    command "cp -Lpr /vagrant/localsrc/3rdparty /var/www/3rdparty"
+  end
+else
+  # clone repositories
+  directory "/usr/local/src" do
+    action :create
+    recursive true
+  end
 
-git "/usr/local/src/owncloud-3rdparty" do
-  repository "git://github.com/owncloud/3rdparty.git"
-  reference node[:owncloud][:setup][:branch]
-  action :sync
-end
+  git "/usr/local/src/owncloud-core" do
+    repository "git://github.com/owncloud/core.git"
+    reference node[:owncloud][:setup][:branch]
+    action :sync
+  end
 
-# Copy files
-execute "Copy core files" do
-  command "cp -ar /usr/local/src/owncloud-core/* /var/www/"
-end
+  git "/usr/local/src/owncloud-apps" do
+    repository "git://github.com/owncloud/apps.git"
+    reference node[:owncloud][:setup][:branch]
+    action :sync
+  end
 
-execute "Copy 3rdparty folder" do
-  command "cp -ar /usr/local/src/owncloud-3rdparty /var/www/3rdparty"
-end
+  git "/usr/local/src/owncloud-3rdparty" do
+    repository "git://github.com/owncloud/3rdparty.git"
+    reference node[:owncloud][:setup][:branch]
+    action :sync
+  end
 
-execute "Copy apps folder" do
-  command "cp -ar /usr/local/src/owncloud-apps /var/www/apps2"
+  # Copy files
+  execute "Copy core files" do
+    command "cp -ar /usr/local/src/owncloud-core/* /var/www/"
+  end
+
+  execute "Copy 3rdparty folder" do
+    command "cp -ar /usr/local/src/owncloud-3rdparty /var/www/3rdparty"
+  end
+
+  execute "Copy apps folder" do
+    command "cp -ar /usr/local/src/owncloud-apps /var/www/apps2"
+  end
 end
 
 #==============================================================================

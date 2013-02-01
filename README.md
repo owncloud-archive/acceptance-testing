@@ -61,13 +61,24 @@ Cucumber expects to find the following environment:
 
 ##Running tests with vagrant
 
-To run the tests on as many environments as possible, you should use vagrant by
-simply executing
+To run the tests against the latest ownCloud master on as many environments
+as possible, you should use vagrant by simply executing
 
     $ ./test-master.sh
 
 Vagrant creates virtual machines with different setups (regarding webserver,
 browser, database backend, user backend) and runs the tests on them.
+
+You can set up vitual machines using your local ownCloud repository. To do so
+you must copy your core repository to Vagrant/localsrc/core. Repeat this for
+apps and 3rdparty. Please note that it is not possible to use symlinks here.
+
+After copying the files you can start the virtual machine by executing
+
+    $ vagrant up local_on_apache_with_sqlite
+
+in the Vagrant folder. Once the machine is up you can run the cucumber against
+33.99.33.10.
 
 #Extending the test suite
 

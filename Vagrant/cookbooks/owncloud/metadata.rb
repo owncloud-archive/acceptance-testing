@@ -26,7 +26,7 @@ attribute "owncloud/setup",
 
 attribute "owncloud/setup/branch",
   :display_name => "Owncloud branch",
-  :description => "branch of ownCloud repo",
+  :description => "branch of ownCloud repo (only if source==github)",
   :default => "master"
 
 attribute "owncloud/setup/webserver",
@@ -39,10 +39,15 @@ attribute "owncloud/setup/user_backend",
   :description => "user backend",
   :default => "database"
 
-attribute "owncloud/setup/branch",
+attribute "owncloud/setup/group_backend",
   :display_name => "Owncloud group backend",
   :description => "group backend",
   :default => "database"
+
+attribute "owncloud/setup/source",
+  :display_name => "Owncloud source",
+  :description => "Source of ownCloud files. 'local' or 'github'",
+  :default => "github"
 
 attribute "owncloud/config",
   :display_name => "Owncloud Hash",

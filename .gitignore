@@ -5,3 +5,6 @@ logs
 *.swp
 *.kate-swp
 *.DS_Store
+Vagrant/localsrc/core
+Vagrant/localsrc/apps
+Vagrant/localsrc/3rdparty
