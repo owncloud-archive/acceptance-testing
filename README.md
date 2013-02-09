@@ -80,6 +80,31 @@ After copying the files you can start the virtual machine by executing
 in the Vagrant folder. Once the machine is up you can run the cucumber against
 33.99.33.10.
 
+Additionally, this test suite ships a script called *run-tests.rb*. It allows
+you to manage the vms very easily. run-tests has the following options:
+
+    --branch BRANCH       Only test the given branch. If a list is given any
+                          vm that loads one of these branches will be loaded
+    --server SERVER       Only test ownCloud on the given webserver. If a list
+                          is given any vm that uses one of these servers will
+                          be loaded
+    --database DATABASE   Only test ownCloud with the given database. If a list
+                          is given any vm that uses one of these servers will
+                          be loaded
+    --feature FEATURE     Only use vms that have a certain feature. If a list
+                          is given only vms that support all of these features
+                          will be loaded
+    --action ACTION       Can be one or more of list, up, provision, halt,
+                          suite, testdav, cucumber
+                          Default: list
+
+Don't use spaces when passing a list.
+
+*Example:* Run litmus on all vms that use apache or nginx as a web server and
+use sqlite as database.
+
+    $ ruby run-tests.rb -s apache,nginx -d sqlite -a up,litmus,halt
+
 #Extending the test suite
 
 Having a test suite is cool, but without constantly updating it the test suite 
