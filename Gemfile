@@ -8,3 +8,5 @@ gem 'rspec',                  '~> 2.11.0' # test framework
 gem 'cucumber',               '~> 1.2.1'  # user stories
 gem 'launchy',                '~> 2.1.2'  # starts programs
 gem 'headless',               '~> 0.3.1'  # don't show the browser window
+gem 'cocaine',                '~> 0.5.1'  # Executing command line commands
+gem 'mixlib-cli',             '~> 1.3.0'  # Parsing command line options
