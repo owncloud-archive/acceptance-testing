@@ -39,11 +39,13 @@ After cloning or updating this repository run
 
 to ensure that all required gems are installed.
 
+##Running tests against a working installation
+
 To execute the tests run
 
     $ cucumber HOST=$host features
 
-Replace $host with the address of your test environment.
+Replace $host (e.g. HOST=localhost:8888/ownCloud/) with the address of your test environment.
 
 Cucumber expects to find the following environment:
 
