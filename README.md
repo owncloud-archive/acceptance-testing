@@ -43,7 +43,7 @@ To execute the tests run
 
     $ cucumber HOST=$host features
 
-Replace $host (e.g. HOST=localhost:8888/ownCloud/) with the address of your test environment.
+Replace $host (e.g. cucumber HOST=localhost:8888/ownCloud/ features) with the address of your test environment.
 
 Cucumber expects to find the following environment:
 
