@@ -157,6 +157,12 @@ If you extend the cookbook please keep the following things in mind:
 
 [2]: http://community.opscode.com/cookbooks
 
+#Note for Mac User
+
+xvfb was not found on my Mac OS 10.7, i had to symlink it:
+
+    $ sudo ln -s /opt/X11/bin/Xvfb /usr/X11/bin/xvfb-run
+
 #Note on Patches/Pull Requests
 
 * Fork the project.
