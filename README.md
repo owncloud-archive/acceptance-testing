@@ -66,7 +66,7 @@ as possible, you should use vagrant by simply executing
 
     $ ./test-master.sh
 
-Note for Mac User
+*Note for Mac User:*
 
 xvfb was not found on my Mac OS 10.7, i had to symlink it:
 
