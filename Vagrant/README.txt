@@ -1,6 +1,7 @@
 How to fire up ownCloud in a VM?
 
 1. install vagrant:
+   On Debian & derivatives:
    apt-get install vagrant
 
 2. start up vagrant
