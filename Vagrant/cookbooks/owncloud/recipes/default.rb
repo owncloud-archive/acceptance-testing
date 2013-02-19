@@ -256,6 +256,16 @@ else
   end
 end
 
+# Save version of apps, core and 3rdparty in /var/www/version.txt
+template "/usr/local/bin/copy_versions.sh" do
+  source "copy_versions.sh.erb"
+  variables :setup_data => node[:owncloud][:setup]
+  mode 0755
+end
+execute "Writing /var/www/versions.txt" do
+  command "/usr/local/bin/copy_versions.sh"
+end
+
 #==============================================================================
 # 5: install ownCloud
 #==============================================================================
