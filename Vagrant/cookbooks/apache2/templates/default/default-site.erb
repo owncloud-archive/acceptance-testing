@@ -4,11 +4,11 @@
         DocumentRoot /var/www/
         <Directory />
                 Options FollowSymLinks
-                AllowOverride None
+                AllowOverride All
         </Directory>
         <Directory /var/www/>
                 Options Indexes FollowSymLinks MultiViews
-                AllowOverride None
+                AllowOverride All
                 Order allow,deny
                 allow from all
                 # This directive allows us to have apache2's default start page
@@ -18,7 +18,7 @@
 
         ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
         <Directory "/usr/lib/cgi-bin">
-                AllowOverride None
+                AllowOverride All
                 Options ExecCGI -MultiViews +SymLinksIfOwnerMatch
                 Order allow,deny
                 Allow from all
@@ -36,7 +36,7 @@
         Alias /doc/ "/usr/share/doc/"
         <Directory "/usr/share/doc/">
             Options Indexes MultiViews FollowSymLinks
-            AllowOverride None
+            AllowOverride All
             Order deny,allow
             Deny from all
             Allow from 127.0.0.0/255.0.0.0 ::1/128

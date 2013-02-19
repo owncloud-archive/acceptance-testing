@@ -43,7 +43,7 @@ To execute the tests run
 
     $ cucumber HOST=$host features
 
-Replace $host with the address of your test environment.
+Replace $host (e.g. cucumber HOST=localhost:8888/ownCloud/ features) with the address of your test environment.
 
 Cucumber expects to find the following environment:
 
@@ -66,6 +66,12 @@ as possible, you should use vagrant by simply executing
 
     $ ./test-master.sh
 
+*Note for Mac User:*
+
+xvfb was not found on my Mac OS 10.7, i had to symlink it:
+
+    $ sudo ln -s /opt/X11/bin/Xvfb /usr/X11/bin/xvfb-run
+    
 Vagrant creates virtual machines with different setups (regarding webserver,
 browser, database backend, user backend) and runs the tests on them.
 
