@@ -40,6 +40,7 @@ end
 
 include_recipe "php"
 include_recipe "php::module_gd"
+include_recipe "php::module_curl"
 
 # Database & connector
 case node[:owncloud][:config][:dbtype]
