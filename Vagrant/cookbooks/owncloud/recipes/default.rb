@@ -40,6 +40,7 @@ end
 
 include_recipe "php"
 include_recipe "php::module_gd"
+include_recipe "php::module_curl"
 
 # Database & connector
 case node[:owncloud][:config][:dbtype]
@@ -136,8 +137,21 @@ when "apache2"
   include_recipe "apache2"
   include_recipe "apache2::mod_php5"
 
-  apache_site "default"
-
+  # Create config
+  template "#{node['apache']['dir']}/sites-available/owncloud" do
+    source "apache-owncloud-site.erb"
+  end
+ 
+  # Disable default site
+  apache_site "default" do
+    enable false
+  end
+ 
+  # enable owncloud specific site (with htaccess enabled etc)
+  apache_site "owncloud" do
+    enable true
+  end
+ 
   service "apache2" do
     action :restart
   end
