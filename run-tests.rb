@@ -30,7 +30,7 @@ module RunTests
 
     option :database,
         :short => "-d DATABASE",
-        :long => "--databse DATABASE",
+        :long => "--database DATABASE",
         :description => "The database"
 
     option :feature,
