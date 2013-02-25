@@ -55,9 +55,10 @@ module RunTests
   end
 
   class App
-    def initialize
+    def initialize opts = {}
       # Load vagrant
-      @vagrant = Vagrant::Environment.new
+      opts = { :ui_class => Vagrant::UI::Basic }.merge opts
+      @vagrant = Vagrant::Environment.new opts
       @vms = @vagrant.vms
       @vm_names = Array.new
     end
