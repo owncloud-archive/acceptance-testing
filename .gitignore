@@ -8,3 +8,4 @@ logs
 Vagrant/localsrc/core
 Vagrant/localsrc/apps
 Vagrant/localsrc/3rdparty
+Vagrant/.vagrant*
