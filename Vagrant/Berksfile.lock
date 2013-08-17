@@ -23,6 +23,11 @@
     "postfix": {
       "locked_version": "2.1.6"
     },
+    "owncloud-testing": {
+      "locked_version": "0.1.0",
+      "git": "git://github.com/Gomez/owncloud-testing.git",
+      "ref": "6164021d2a8e1d21a02ea85b71c6380ce6aa87c5"
+    },
     "postgresql": {
       "locked_version": "3.0.2"
     },
