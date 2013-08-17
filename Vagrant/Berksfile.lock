@@ -16,7 +16,9 @@
       "locked_version": "1.2.2"
     },
     "owncloud": {
-      "locked_version": "0.1.0"
+      "locked_version": "0.1.1",
+      "git": "git://github.com/jakobsack/owncloud-cookbook.git",
+      "ref": "1d49be54b162710fde41ada0d0ae5e6f1b77a7df"
     },
     "postfix": {
       "locked_version": "2.1.6"
