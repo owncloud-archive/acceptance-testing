@@ -52,7 +52,6 @@ remote_file "download litmus" do
   source "http://www.webdav.org/neon/litmus/litmus-0.13.tar.gz"
   path "/tmp/litmus-0.13.tar.gz"
   action :create
-  creates "/usr/local/bin/litmus"
   notifies :run, "execute[extract litmus]", :immediately
 end
 
