@@ -41,7 +41,7 @@ Vagrant.configure("2") do |config|
       chef.json = default_chef_json.merge( {} )
 
       # let the recipe do all the rest
-      chef.add_recipe "owncloud"
+      chef.add_recipe "owncloud-testing"
     end
   end
 
