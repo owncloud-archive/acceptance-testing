@@ -157,6 +157,21 @@ If you extend the cookbook please keep the following things in mind:
 
 [2]: http://community.opscode.com/cookbooks
 
+#Known Issues
+
+Error if you run the cucumber tests:
+“unable to obtain stable firefox connection in 60 seconds”
+
+Probably the selenium-webdriver isnt working with a new Firefox Version.
+
+To fix try:
+
+      $gem update selenium-webdriver
+      
+      $bundle update selenium-webdriver
+      
+If its working, update the version in the Gemfile
+
 #Note on Patches/Pull Requests
 
 * Fork the project.
