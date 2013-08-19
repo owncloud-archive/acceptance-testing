@@ -7,6 +7,15 @@
 # All rights reserved - Do Not Redistribute
 #
 
+# Define small helper method here - find better place soon
+def local_ruby_version
+  if File.exist? "/vagrant/.ruby_version"
+    File.read( "/vagrant/.ruby-version" ).chomp
+  else
+    "1.9.3-p194"
+  end
+end
+
 # Install owncloud using the official community cookbook
 include_recipe "owncloud"
 
@@ -35,9 +44,9 @@ end
 # Install ruby 1.9.3-p194 and bundler
 include_recipe "rbenv::default"
 include_recipe "rbenv::ruby_build"
-rbenv_ruby "1.9.3-p194"
+rbenv_ruby local_ruby_version
 rbenv_gem "bundler" do
-  ruby_version "1.9.3-p194"
+  ruby_version { local_ruby_version }
 end
 
 # Install the required gems (like cucumber, selenium etc.)
