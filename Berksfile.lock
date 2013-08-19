@@ -43,6 +43,30 @@
     },
     "xml": {
       "locked_version": "1.1.2"
+    },
+    "rbenv": {
+      "locked_version": "1.5.0"
+    },
+    "git": {
+      "locked_version": "2.5.2"
+    },
+    "dmg": {
+      "locked_version": "1.1.0"
+    },
+    "yum": {
+      "locked_version": "2.3.0"
+    },
+    "windows": {
+      "locked_version": "1.10.0"
+    },
+    "chef_handler": {
+      "locked_version": "1.1.4"
+    },
+    "runit": {
+      "locked_version": "1.1.6"
+    },
+    "ohai": {
+      "locked_version": "1.1.10"
     }
   }
 }
