@@ -1,11 +1,10 @@
 .bundle
 .idea
-Vagrant/.vagrant
 logs
 *.swp
 *.kate-swp
 *.DS_Store
-Vagrant/localsrc/core
-Vagrant/localsrc/apps
-Vagrant/localsrc/3rdparty
-Vagrant/.vagrant*
+/localsrc/core
+/localsrc/apps
+/localsrc/3rdparty
+/.vagrant*
