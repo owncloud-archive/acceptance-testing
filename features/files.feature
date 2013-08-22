@@ -39,15 +39,15 @@ Feature: files
   Scenario Outline: show file actions on hover
 #    And I go to /
     When I hover over <entry>
-    Then I should see a "Umbenennen" action for <entry>
-    And I should see a "Herunterladen" action for <entry>
+    #Then I should see a "Rename" action for <entry>
+    #And I should see a "Download" action for <entry>
     And I should see a delete action for <entry>
     
     Examples:
       | entry                                            |
       #Can be tested as soon as we can create the folders
-#      | Music                                            |
-#      | Photos                                           |
+      #| Music                                           |
+      #| Photos                                          |
       | Demo Code - C++.cc                               |
       | Demo Code - PHP.php                              |
       | Demo Code - Python.py                            |
