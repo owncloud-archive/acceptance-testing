@@ -16,10 +16,12 @@ end
 
 When /^I am in the "([^"]*)" app$/ do |app|
   visit "/index.php?app=#{app}"
+  find('#settings').click
   page.should have_selector('a#logout')
 end
 
 When /^I go to "([^"]*)"$/ do |path|
   visit "#{path}"
+  find('#settings').click
   page.should have_selector('a#logout')
 end
