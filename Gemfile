@@ -1,6 +1,7 @@
 source :rubygems
 
 gem 'capybara',               '~> 2.1.0'  # integration tests
+gem 'capybara-webkit'                     # webkit headless browser
 gem 'selenium-webdriver',     '~> 2.35.0' # use selenium for controlling the browser
 gem 'rspec',                  '~> 2.14.1' # test framework
 gem 'cucumber',               '~> 1.3.6'  # user stories
