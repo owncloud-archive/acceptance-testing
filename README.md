@@ -182,6 +182,13 @@ To fix try:
       
 If its working, update the version in the Gemfile
 
+Error if you try to bring up the vagrant box:
+Vagrant: * Unknown configuration section 'berkshelf'.
+
+You are missing the vagrant-berkshelf plugin:
+
+       $vagrant plugin install vagrant-berkshelf
+
 #Note on Patches/Pull Requests
 
 * Fork the project.
