@@ -69,6 +69,12 @@ Cucumber expects to find the following environment:
 
 1. Users "user1" and "user2" are member of "group1"
 
+To execute the tests headless with webkit:
+
+    $ cucumber HOST=$host BROWSER='webkit' features
+
+Default is executed with firfox
+
 ##Running tests with vagrant
 
 To run the tests against the latest ownCloud master on as many environments
