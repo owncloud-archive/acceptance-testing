@@ -10,6 +10,7 @@ Given /^I am logged in$/ do
   fill_in 'password', with: "admin"
   click_button 'submit'
   #save_page
+  find('#settings').click
   page.should have_selector('a#logout')
 end
 

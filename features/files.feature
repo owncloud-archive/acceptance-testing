@@ -6,6 +6,7 @@ Feature: files
 
   Background:
     Given I am logged in
+    Then show me the response
     # these are the files hosted on demo.owncloud.org
     And I am in the "files" app
     And I have uploaded the "demo" files
@@ -18,7 +19,7 @@ Feature: files
     And <name> should show a <human> size
     And I should see a new button
     And I should see an upload action
-    
+
     Examples:
       | mime                 | name                                             | bytes    | human    |
       | text/x-c             | Demo Code - C++.cc                               | 3066     | 3 kB     |
