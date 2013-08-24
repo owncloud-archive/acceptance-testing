@@ -2,6 +2,7 @@ require "bundler/setup"
  
 #require 'capybara/mechanize'
 require 'capybara/cucumber'
+require 'ruby-debug'
 
 Encoding.default_internal = Encoding::UTF_8
 

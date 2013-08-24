@@ -34,12 +34,11 @@ When /^I hover over ([^"]*)$/ do |entry|
   #element = page.find('tr', :text => entry)
   #Capybara.current_session.driver.mouse.move_to(element).perform
   #page.execute_script("$('tr[data-file=\"#{entry}\"]').trigger('mouseover')")
-  find("tr[@data-file=\"#{entry}\"]")
+  page.find(:xpath, "//tr[@data-file=\"#{entry}\"]").hover
 end
 
 Then /^I should see a "([^"]*)" action for ([^"]*)$/ do |action, entry|
   page.find(:xpath, "//tr[@data-file=\"#{entry}\"]").should have_content(action)
-  print #{action}
 end
 
 Then /^I should see a delete action for ([^"]*)$/ do |entry|

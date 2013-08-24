@@ -39,15 +39,12 @@ Feature: files
   Scenario Outline: show file actions on hover
 #    And I go to /
     When I hover over <entry>
-    #Then I should see a "Rename" action for <entry>
-    #And I should see a "Download" action for <entry>
+    Then I should see a "Rename" action for <entry>
+    And I should see a "Download" action for <entry>
     And I should see a delete action for <entry>
     
     Examples:
       | entry                                            |
-      #Can be tested as soon as we can create the folders
-      #| Music                                           |
-      #| Photos                                          |
       | Demo Code - C++.cc                               |
       | Demo Code - PHP.php                              |
       | Demo Code - Python.py                            |
@@ -59,6 +56,9 @@ Feature: files
       | Demo MP3 - E.J. - Blick Zurück.mp3               |
       | Demo PDF - Alice in Wonderland.pdf               |
       | Demo Textfile - License.txt                      |
+      #Can be tested as soon as we can create the folders
+      #| Music                                           |
+      #| Photos                                          |
 
   Scenario Outline: create files and folders
     When I click on the new button
