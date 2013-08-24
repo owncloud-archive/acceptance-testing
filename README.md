@@ -175,6 +175,8 @@ If you extend the cookbook please keep the following things in mind:
 
 #Known Issues
 
+###Selenium-webdriver not working with most recent Firefox version
+
 Error if you run the cucumber tests:
 “unable to obtain stable firefox connection in 60 seconds”
 
@@ -182,18 +184,31 @@ Probably the selenium-webdriver isnt working with a new Firefox Version.
 
 To fix try:
 
-      $gem update selenium-webdriver
+      $ gem update selenium-webdriver
       
-      $bundle update selenium-webdriver
+      $ bundle update selenium-webdriver
       
 If its working, update the version in the Gemfile
+
+###Vagrant missing berkshelf
 
 Error if you try to bring up the vagrant box:
 Vagrant: * Unknown configuration section 'berkshelf'.
 
 You are missing the vagrant-berkshelf plugin:
 
-       $vagrant plugin install vagrant-berkshelf
+       $ vagrant plugin install vagrant-berkshelf
+
+###capybara-webkit needs qt
+
+Gem::Installer::ExtensionBuildError: ERROR: Failed to build gem native extension.
+Command 'qmake -spec macx-g++' not available
+
+You are missing the qt files:
+
+On a mac with homebrew you can do:
+
+      $ brew install qt
 
 #Note on Patches/Pull Requests
 
