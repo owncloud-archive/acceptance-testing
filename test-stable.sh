@@ -44,20 +44,18 @@ fi
 
 function run_tests {
 	VM_NAME=$1
-	IP=$(grep -A 1 $VM_NAME Vagrant/Vagrantfile | grep hostonly | egrep -o "[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}")
+	IP=$(grep -A 1 $VM_NAME Vagrantfile | grep private_network | egrep -o "[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}")
     echo "IP for $VM_NAME: $IP"
 
 	#
 	# first start the vm(s)
 	#
-	cd Vagrant
 	vagrant up $VM_NAME
 
 	#
 	# Running the bdd test suite
 	#
 	echo "Running the bdd test suite ..."
-	cd ..
 	rm -rf logs/$VM_NAME
 	mkdir -p logs
 	bundle exec cucumber -f json -o ./logs/$VM_NAME.json -f pretty HOST=$IP features
@@ -76,7 +74,6 @@ function run_tests {
 	# bring down the vm
 	#
     echo "Bring it down ..."
-	cd Vagrant
 	vagrant halt $VM_NAME
 	cd ..
 }
@@ -85,15 +82,17 @@ function run_tests {
 # evaluate args
 #
 if [ $# -eq 0 ]; then
-    run_tests master_on_apache_with_sqlite
-    run_tests master_on_apache_with_mysql
-    run_tests master_on_apache_with_postgresql
-    run_tests master_on_lighttpd_with_sqlite
-    run_tests master_on_lighttpd_with_mysql
-    run_tests master_on_lighttpd_with_postgresql
-    run_tests master_on_nginx_with_sqlite
-    run_tests master_on_nginx_with_mysql
-    run_tests master_on_nginx_with_postgresql
+    run_tests stable_on_apache_with_mysql
+# We bring back the vms if they are ready
+#    run_tests master_on_apache_with_sqlite
+#    run_tests master_on_apache_with_mysql
+#    run_tests master_on_apache_with_postgresql
+#    run_tests master_on_lighttpd_with_sqlite
+#    run_tests master_on_lighttpd_with_mysql
+#    run_tests master_on_lighttpd_with_postgresql
+#    run_tests master_on_nginx_with_sqlite
+#    run_tests master_on_nginx_with_mysql
+#    run_tests master_on_nginx_with_postgresql
 else
     CFG=$1_on_$3_with_$2
     echo Start testing $CFG
@@ -103,5 +102,5 @@ fi
 #
 # Say good bye
 #
-echo " "
+#echo " "
 echo "Done. Thank you for testing ownCloud!"
