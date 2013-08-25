@@ -9,7 +9,7 @@
 
 # Define small helper method here - find better place soon
 def local_ruby_version
-  if File.exist? "/vagrant/.ruby_version"
+  if File.exist? "/vagrant/.ruby-version"
     File.read( "/vagrant/.ruby-version" ).chomp
   else
     "1.9.3-p194"
@@ -46,7 +46,8 @@ include_recipe "rbenv::default"
 include_recipe "rbenv::ruby_build"
 rbenv_ruby local_ruby_version
 rbenv_gem "bundler" do
-  ruby_version { local_ruby_version }
+  # TODO: use "ruby_version lazy { local_ruby_version }" as soon as chef 11.6 is used
+  ruby_version "1.9.3-p429" # lazy { local_ruby_version }
 end
 
 # Install the required gems (like cucumber, selenium etc.)
@@ -62,6 +63,7 @@ remote_file "download litmus" do
   path "/tmp/litmus-0.13.tar.gz"
   action :create
   notifies :run, "execute[extract litmus]", :immediately
+  not_if { File.exists? "/usr/local/bin/litmus" }
 end
 
 execute "extract litmus" do
@@ -77,3 +79,8 @@ execute "install litmus" do
   action :nothing
 end
 
+group "rbenv" do
+  action :modify
+  append true
+  members "vagrant"
+end
