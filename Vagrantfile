@@ -29,6 +29,11 @@ Vagrant.configure("2") do |config|
   config.vm.box = "debian-70rc1"
   config.vm.box_url = "http://puppet-vagrant-boxes.puppetlabs.com/debian-70rc1-x64-vbox4210.box"
 
+  # Give more RAM to vm
+  config.vm.provider :virtualbox do |vb|
+    vb.customize ["modifyvm", :id, "--memory", "1024"]
+  end
+
   # Enable berkshelf
   config.berkshelf.enabled = true
 
