@@ -45,3 +45,21 @@ Then /^I should see a delete action for ([^"]*)$/ do |entry|
   page.should have_xpath("//tr[@data-file='#{entry}']")
 end
 
+When(/^I click on the new button$/) do
+    page.find('#new').click
+end
+
+#@my_action need refactoring
+When(/^I click on the new ([^"]*) action$/) do | action |
+    page.find(:xpath, "//li[@data-type=\"#{action}\"]").click
+    @my_action = action
+end
+
+#"\n" sends a :return
+When(/^I enter ([^"]*)$/) do | filename |
+    page.find(:xpath, "//li[@data-type=\"#{@my_action}\"]/form/input").set filename + "\n"
+end
+
+Then(/^I should see the file ([^"]*)$/) do | filename |
+  page.find(:xpath, "//tr[@data-file=\"#{filename}\"]").should have_content(filename)
+end

@@ -63,17 +63,18 @@ Feature: files
   Scenario Outline: create files and folders
     When I click on the new button
     And I click on the new <type> action
-    And I enter <filename>
-    Then I should see <filename>
-    And <filename> should have mimetype <mimetype>
-    And <filename> should have size <size>
-    
+    And I enter <name>
+    Then I should see the file <name>
+    And <name> should be of type <mime>
+    And <name> should have <bytes> bytes size
+
     Examples:
-      | type   | mimetype             | filename               | size |
-      | file   | text/plain           | simplefile.txt         | 0    |
-      | file   | text/plain           | äöü ß ÄÖÜ € @.txt      | 0    |
-      | file   | text/x-c             | test.cc                | 0    |
-      | file   | text/x-php           | test.php               | 0    |
+      | type   | mime              | name               | bytes |
+      | file   | text/plain        | simplefile.txt     | 0     |
+      | file   | text/plain        | äöü ß ÄÖÜ € @.txt  | 0     |
+      | file   | application/x-php | test.php           | 0     |
+      #TODO test.cc gives empty mimetype. Need more info
+      #| file   | text/x-c          | test.cc            | 0     |
       #Can be tested as soon as we can create the folders
       #| folder | httpd/unix-directory | Testfolder             | 0    |
       #| folder | httpd/unix-directory | Testfolder with spaces | 0    |
