@@ -34,7 +34,7 @@ end
 
 # Install software we need for testing
 include_recipe "apt"
-%w(xvfb).each do |pkg|
+%w(xvfb qt4-qmake libqtwebkit-dev).each do |pkg|
   package pkg do
     action :install
   end
