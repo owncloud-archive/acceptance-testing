@@ -38,13 +38,13 @@ Feature: files
     
   Scenario Outline: show file actions on hover
 #    And I go to /
-    When I hover over <entry>
-    Then I should see a "Rename" action for <entry>
-    And I should see a "Download" action for <entry>
-    And I should see a delete action for <entry>
+    When I hover over <filename>
+    Then I should see a "Rename" action for <filename>
+    And I should see a "Download" action for <filename>
+    And I should see a delete action for <filename>
     
     Examples:
-      | entry                                            |
+      | filename                                         |
       | Demo Code - C++.cc                               |
       | Demo Code - PHP.php                              |
       | Demo Code - Python.py                            |
@@ -79,25 +79,26 @@ Feature: files
       #| folder | httpd/unix-directory | Testfolder             | 0    |
       #| folder | httpd/unix-directory | Testfolder with spaces | 0    |
 
-  Scenario Outline: create file and reload
-    When I click on the new button
-    And I click on the new <type> action
-    And I enter <filename>
-    # file names are only fetched after reloading the page, so go to /
-    And I go to /
-    Then I should see <filename>
-    And <filename> should have a <mimetype> icon
-    And <filename> should have size <size>
-    
-    Examples:
-      | type   | mimetype             | filename               | size |
-      | file   | text/plain           | simplefile.txt         | 0    |
-      | file   | text/plain           | äöü ß ÄÖÜ € @.txt      | 0    |
-      | file   | text/x-c             | test.cc                | 0    |
-      | file   | text/x-php           | test.php               | 0    |
-      #Can be tested as soon as we can create the folders
-      #| folder | httpd/unix-directory | Testfolder             | 0    |
-      #| folder | httpd/unix-directory | Testfolder with spaces | 0    |
+  # Is this test needed anymore, done with secenario "create files and folders"?
+  #Scenario Outline: create file and reload
+  #  When I click on the new button
+  #  And I click on the new <type> action
+  #  And I enter <filename>
+  # # file names are only fetched after reloading the page, so go to /
+  #  And I go to /
+  #  Then I should see <filename>
+  #  And <filename> should have a <mimetype> icon
+  #  And <filename> should have size <size>
+  #
+  #  Examples:
+  #    | type   | mimetype             | filename               | size |
+  #   | file   | text/plain           | simplefile.txt         | 0    |
+  #    | file   | text/plain           | äöü ß ÄÖÜ € @.txt      | 0    |
+  #    | file   | text/x-c             | test.cc                | 0    |
+  #    | file   | text/x-php           | test.php               | 0    |
+  #    #Can be tested as soon as we can create the folders
+  #    #| folder | httpd/unix-directory | Testfolder             | 0    |
+  ##| folder | httpd/unix-directory | Testfolder with spaces | 0    |
 
   Scenario: create from URL
     When I click on the new button
@@ -110,26 +111,27 @@ Feature: files
 
   Scenario Outline: download file
     And I go to /
-    When I hover over <type> <filename>
-    And I click on the download action of <filename>
-    Then I should download <file>
+    When I hover over <filename>
+    And I click on the Download action of <filename>
+    # TODO have not found better escape function
+    Then I should download <filename>
 
     Examples:
-      | type   | filename                                         | file                                             |
-      | file   | Demo Code - C++.cc                               | Demo Code - C++.cc                               |
-      | file   | Demo Code - PHP.php                              | Demo Code - PHP.php                              |
-      | file   | Demo Code - Python.py                            | Demo Code - Python.py                            |
-      | file   | Demo Image - ccc.jpg                             | Demo Image - ccc.jpg                             |
-      | file   | Demo Image - Laser Towards Milky Ways Centre.jpg | Demo Image - Laser Towards Milky Ways Centre.jpg |
-      | file   | Demo Image - Northern Lights.jpg                 | Demo Image - Northern Lights.jpg                 |
-      | file   | Demo Movie MOV - Big Bug Bunny Trailer.mov       | Demo Movie MOV - Big Bug Bunny Trailer.mov       |
-      | file   | Demo Movie OGG - Big Bug Bunny Trailer.ogg       | Demo Movie OGG - Big Bug Bunny Trailer.ogg       |
-      | file   | Demo MP3 - E.J. - Blick Zurück.mp3               | Demo MP3 - E.J. - Blick Zurück.mp3               |
-      | file   | Demo PDF - Alice in Wonderland.pdf               | Demo PDF - Alice in Wonderland.pdf               |
-      | file   | Demo Textfile - License.txt                      | Demo Textfile - License.txt                      |
+      | filename                                         | file_escaped                                     |
+      | Demo Code - C++.cc                               | Demo%20Code%20-%20C%2B%2B.cc                     |
+      | Demo Code - PHP.php                              | Demo%20Code%20-%20PHP.php                        |
+      | Demo Code - Python.py                            | Demo%20Code%20-%20Python.py                      |
+      | Demo Image - ccc.jpg                             | Demo%20Image%20-%20ccc.jpg                       |
+      | Demo Image - Laser Towards Milky Ways Centre.jpg | Demo Image - Laser Towards Milky Ways Centre.jpg |
+      | Demo Image - Northern Lights.jpg                 | Demo Image - Northern Lights.jpg                 |
+      | Demo Movie MOV - Big Bug Bunny Trailer.mov       | Demo Movie MOV - Big Bug Bunny Trailer.mov       |
+      | Demo Movie OGG - Big Bug Bunny Trailer.ogg       | Demo Movie OGG - Big Bug Bunny Trailer.ogg       |
+      | Demo MP3 - E.J. - Blick Zurück.mp3               | Demo MP3 - E.J. - Blick Zurück.mp3               |
+      | Demo PDF - Alice in Wonderland.pdf               | Demo PDF - Alice in Wonderland.pdf               |
+      | Demo Textfile - License.txt                      | Demo Textfile - License.txt                      |
       #Can be tested as soon as we can create the folders
-      #| folder | Music                                            | Music.zip                                        |
-      #| folder | Photos                                           | Photos.zip                                       |
+      #| Music                                            | Music.zip                                        |
+      #| Photos                                           | Photos.zip                                       |
 
   Scenario Outline: delete item
     And I go to /

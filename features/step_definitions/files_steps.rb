@@ -31,9 +31,6 @@ When /^I should see an upload action$/ do
 end
 
 When /^I hover over ([^"]*)$/ do |entry|
-  #element = page.find('tr', :text => entry)
-  #Capybara.current_session.driver.mouse.move_to(element).perform
-  #page.execute_script("$('tr[data-file=\"#{entry}\"]').trigger('mouseover')")
   page.find(:xpath, "//tr[@data-file=\"#{entry}\"]").hover
 end
 
@@ -55,11 +52,26 @@ When(/^I click on the new ([^"]*) action$/) do | action |
     @my_action = action
 end
 
-#"\n" sends a :return
 When(/^I enter ([^"]*)$/) do | filename |
+    #"\n" sends a :return
     page.find(:xpath, "//li[@data-type=\"#{@my_action}\"]/form/input").set filename + "\n"
 end
 
 Then(/^I should see the file ([^"]*)$/) do | filename |
   page.find(:xpath, "//tr[@data-file=\"#{filename}\"]").should have_content(filename)
+end
+
+Given(/^I go to \/$/) do
+    visit "/"
+end
+
+When(/^I click on the ([^"]*) action of ([^"]*)$/) do | action, filename |
+    page.find(:xpath, "//tr[@data-file=\"#{filename}\"]//a[@data-action=\"#{action}\"]").click
+end
+
+Then(/^I should download ([^"]*)$/) do | file |
+    # TODO have not found better escape function
+    file_escaped = URI::escape(file)
+    print page.response_headers['Content-Disposition']
+    page.response_headers['Content-Disposition'].should have_content("filename=\"#{file_escaped}\"")
 end
