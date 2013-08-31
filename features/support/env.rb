@@ -26,6 +26,20 @@ Capybara.register_driver :selenium do |app|
   Capybara::Selenium::Driver.new(app, :browser => :firefox, :http_client => http_client)
 end
 
+#Headless switch
+headless = ENV['HEADLESS']
+headless ||= 'false'
+if headless == 'true'
+  require 'headless'
+
+  headless = Headless.new #(:display => 99999)
+  headless.start
+
+  at_exit do
+    headless.destroy
+  end
+end
+
 host= ENV['HOST']
 host ||= '33.33.33.10'
 Capybara.app = host
