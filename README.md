@@ -69,11 +69,13 @@ Cucumber expects to find the following environment:
 
 1. Users "user1" and "user2" are member of "group1"
 
-To execute the tests headless with webkit:
+To execute the tests with webkit (default is executed with firefox):
 
     $ cucumber HOST=$host BROWSER='webkit' features
+    
+To execute the tests headless (default is non-headless):
 
-Default is executed with firfox
+    $ cucumber HOST=$host HEADLESS=true features
 
 ##Running tests with vagrant
 
