@@ -26,8 +26,12 @@ Vagrant.configure("2") do |config|
   }
 
   # Use a debian wheezy box
-  config.vm.box = "debian-70rc1"
-  config.vm.box_url = "http://puppet-vagrant-boxes.puppetlabs.com/debian-70rc1-x64-vbox4210.box"
+  #64Bit Host
+  #config.vm.box = "precise-x64"
+  #config.vm.box_url = "http://files.vagrantup.com/precise64.box"
+  #32Bit Host
+  config.vm.box = "precise-i386"
+  config.vm.box_url = "http://files.vagrantup.com/precise32.box"
 
   # Give more RAM to vm
   config.vm.provider :virtualbox do |vb|
@@ -36,6 +40,9 @@ Vagrant.configure("2") do |config|
 
   # Enable berkshelf
   config.berkshelf.enabled = true
+
+  # We install 
+  config.omnibus.chef_version = :latest
 
   # First vm
   config.vm.define "stable_on_apache_with_mysql" do |app|
