@@ -14,17 +14,17 @@ when "firefox"
   require 'selenium-webdriver'
   Capybara.default_driver = :selenium
   Capybara.javascript_driver = :selenium
+  Capybara.register_driver :selenium do |app|
+    http_client = Selenium::WebDriver::Remote::Http::Default.new
+    http_client.timeout = 200
+    Capybara::Selenium::Driver.new(app, :browser => :firefox, :http_client => http_client)
+  end
 when "webkit"
   require 'capybara-webkit'
   Capybara.default_driver = :webkit
   Capybara.javascript_driver = :webkit
 end
 
-Capybara.register_driver :selenium do |app|
-  http_client = Selenium::WebDriver::Remote::Http::Default.new
-  http_client.timeout = 200
-  Capybara::Selenium::Driver.new(app, :browser => :firefox, :http_client => http_client)
-end
 
 #Headless switch
 headless = ENV['HEADLESS']
