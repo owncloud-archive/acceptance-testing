@@ -1,3 +1,4 @@
+# encoding: utf-8
 Feature: Login
   In order to protect data in my cloud instance
   As an user

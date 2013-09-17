@@ -52,7 +52,7 @@ When(/^I click on the new ([^"]*) action$/) do | action |
     @my_action = action
 end
 
-When(/^I enter ([^"]*)$/) do | filename |
+When(/^I enter the filename ([^"]*)$/) do | filename |
     #"\n" sends a :return
     page.find(:xpath, "//li[@data-type=\"#{@my_action}\"]/form/input").set filename + "\n"
 end
@@ -74,4 +74,28 @@ Then(/^I should download ([^"]*)$/) do | file |
     file_escaped = URI::escape(file)
     print page.response_headers['Content-Disposition']
     page.response_headers['Content-Disposition'].should have_content("filename=\"#{file_escaped}\"")
+end
+
+When(/^Click the delete cross of ([^"]*)$/) do | filename |
+    find('.delete').click
+end
+
+Then(/^I should no longer see ([^"]*)$/) do |filename|
+    page.should_not have_xpath("//tr[@data-file=\"#{filename}\"]")
+end
+
+Then(/^There should be ([^"]*)$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Then(/^Not anymore the file ([^"]*)$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+When(/^I type in ([^"]*)$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+When(/^I click on the "(.*?)" action of ([^"]*)$/) do |action, filename|
+  pending # express the regexp above with the code you wish you had
 end
