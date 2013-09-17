@@ -192,14 +192,15 @@ To fix try:
       
 If its working, update the version in the Gemfile
 
-###Vagrant missing berkshelf
+###Vagrant missing berkshelf or omnibus
 
 Error if you try to bring up the vagrant box:
 Vagrant: * Unknown configuration section 'berkshelf'.
 
-You are missing the vagrant-berkshelf plugin:
+You are missing the vagrant-berkshelf or vagrant-omnibus plugin:
 
        $ vagrant plugin install vagrant-berkshelf
+       $ vagrant plugin install vagrant-omnibus
 
 ###capybara-webkit needs qt
 

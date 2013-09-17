@@ -41,6 +41,9 @@ Vagrant.configure("2") do |config|
   # Enable berkshelf
   config.berkshelf.enabled = true
 
+  #Pin our chef version
+  config.omnibus.chef_version = "11.4.0"
+
   # First vm
   config.vm.define "stable_on_apache_with_mysql" do |app|
     app.vm.network :private_network, :ip => "33.33.33.10"
