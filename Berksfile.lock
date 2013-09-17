@@ -16,9 +16,7 @@
       "locked_version": "1.2.2"
     },
     "owncloud": {
-      "locked_version": "0.1.1",
-      "git": "git://github.com/jakobsack/owncloud-cookbook.git",
-      "ref": "1d49be54b162710fde41ada0d0ae5e6f1b77a7df"
+      "locked_version": "0.2.0"
     },
     "postfix": {
       "locked_version": "2.1.6"
@@ -27,16 +25,16 @@
       "path": "./cookbooks/owncloud-testing"
     },
     "postgresql": {
-      "locked_version": "3.0.2"
+      "locked_version": "3.0.4"
     },
     "apt": {
-      "locked_version": "2.1.0"
+      "locked_version": "2.1.1"
     },
     "build-essential": {
-      "locked_version": "1.4.0"
+      "locked_version": "1.4.2"
     },
     "aws": {
-      "locked_version": "0.101.2"
+      "locked_version": "0.101.4"
     },
     "xfs": {
       "locked_version": "1.1.0"
@@ -44,29 +42,35 @@
     "xml": {
       "locked_version": "1.1.2"
     },
-    "rbenv": {
-      "locked_version": "1.5.1"
-    },
-    "git": {
-      "locked_version": "2.5.2"
-    },
-    "dmg": {
-      "locked_version": "1.1.0"
+    "nginx": {
+      "locked_version": "1.8.0"
     },
     "yum": {
-      "locked_version": "2.3.0"
+      "locked_version": "2.3.2"
+    },
+    "runit": {
+      "locked_version": "1.2.0"
+    },
+    "ohai": {
+      "locked_version": "1.1.12"
+    },
+    "php-fpm": {
+      "locked_version": "0.4.6"
+    },
+    "rbenv": {
+      "locked_version": "1.6.5"
+    },
+    "git": {
+      "locked_version": "2.6.0"
+    },
+    "dmg": {
+      "locked_version": "2.0.0"
     },
     "windows": {
       "locked_version": "1.10.0"
     },
     "chef_handler": {
       "locked_version": "1.1.4"
-    },
-    "runit": {
-      "locked_version": "1.1.6"
-    },
-    "ohai": {
-      "locked_version": "1.1.10"
     }
   }
 }
