@@ -46,7 +46,7 @@ Vagrant.configure("2") do |config|
 
   # First vm
   config.vm.define "stable_on_apache_with_mysql" do |app|
-    app.vm.network :private_network, :ip => "33.33.33.10"
+    app.vm.network :private_network, :ip => "192.168.10.10"
     app.vm.hostname = "apache01.local"
     app.vm.provision :chef_solo do |chef|
       # define our setup
