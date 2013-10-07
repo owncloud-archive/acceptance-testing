@@ -23,15 +23,23 @@ require_once 'lib/base.php';
 // The following apps belong to a clean environment:
 $allowed_apps = array('calendar', 'contacts', 'files', 'files_sharing', 'files_versions');
 
+// Check it allowed apps are in the filesystem
+$available_apps = array();
+foreach( $allowed_apps as $app ){
+    if( OC_APP::getAppPath( $app )) {
+        array_push($available_apps, $app);
+    }
+}
+
 // Disable all apps that are not listed here
 foreach( OC_App::getEnabledApps() as $app ){        
-    if( !in_array( $app, $allowed_apps )){
+    if( !in_array( $app, $available_apps )){
                 OC_App::disable( $app );
         }
 }
 
 // Enable all apps that are missing
-foreach( $allowed_apps as $app ){
+foreach( $available_apps as $app ){
     if( !OC_App::isEnabled( $app  )){
         OC_App::enable( $app );
     }
