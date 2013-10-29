@@ -96,6 +96,6 @@ When(/^I type in ([^"]*)$/) do
   pending # express the regexp above with the code you wish you had
 end
 
-When(/^I click on the "(.*?)" action of ([^"]*)$/) do |action, filename|
-  pending # express the regexp above with the code you wish you had
-end
+#When(/^I click on the "(.*?)" action of ([^"]*)$/) do |action, filename|
+#  pending # express the regexp above with the code you wish you had
+#end

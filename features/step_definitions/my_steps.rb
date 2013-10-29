@@ -1,3 +1,4 @@
+# encoding: utf-8
 Given /^I am not logged in$/ do
   visit '/index.php?logout=true'
 end

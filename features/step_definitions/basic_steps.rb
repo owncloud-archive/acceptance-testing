@@ -1,3 +1,4 @@
+# encoding: utf-8
 Given /^I am logged in$/ do
 
   # be sure to use the right browser session
