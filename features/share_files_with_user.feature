@@ -23,8 +23,13 @@ Feature: share files with user
     And I hover over <filename>
     When I click on the Share action of <filename>
     And I am sharing this <filename> to user2
-    Then I should see the share with user icon
-    And I should see the username in the list of shared users
+    Then I should see the share with user icon within <filename>
+    And I should see the username in the list of shared users within <filename>
+    Given I am not logged in
+    Given I am logged in as user2
+    And I go into the Shared Folder
+    Then I should see the shared <filename>
+
 
   Examples:
   | type   | filename                                         |
@@ -34,38 +39,44 @@ Feature: share files with user
     And I hover over <filename>
     When I click on the Share action of <filename>
     And I am sharing this <filename> to user2
-    Then I should see the share with user icon
+    Then I should see the share with user icon within <filename>
 
   Examples:
   | type   | filename                                         |
   | file   | Demo Code - PHP.php                              |
   | file   | Demo Code - Python.py                            |
 
-#  Scenario: list unshared files
-#    Given I am logged in
-#    And I have shared some files
-#    When I go to the files app
-#    And I hover over a file not shared with a user
-#    Then I should not see the share with user icon
-#
-#  Scenario: share permissions
-#    Given I am logged in
-#    And I have shared a file
-#    When I go to the files app
-#    And I hover over the file
-#    And I click on the share file action
-#    And I hover over the user I shared the file with
-#    Then I should see a "can edit" checkbox
-#    And I should see an unshare action
-#
-#  Scenario: unshare
-#    Given I am logged in
-#    And I have shared a file
-#    When I go to the files app
-#    And I hover over the file
-#    And I click on the share file action
-#    And I hover over the user I shared the file with
-#    And I click on the unshare action
-#    Then I should not see the username in the list of shared users
-#
-#
+  Scenario: list unshared files
+    #Share a file
+    And I hover over Demo Movie OGG - Big Bug Bunny Trailer.ogg
+    When I click on the Share action of Demo Movie OGG - Big Bug Bunny Trailer.ogg
+    And I am sharing this Demo Movie OGG - Big Bug Bunny Trailer.ogg to user2
+    #Check not shared file
+    And I hover over Demo Image - Laser Towards Milky Ways Centre.jpg
+    Then I should not see the share with user icon within Demo Image - Laser Towards Milky Ways Centre.jpg
+
+  Scenario: share permissions
+    #Share a file
+    And I hover over Demo Movie OGG - Big Bug Bunny Trailer.ogg
+    When I click on the Share action of Demo Movie OGG - Big Bug Bunny Trailer.ogg
+    And I am sharing this Demo Movie OGG - Big Bug Bunny Trailer.ogg to user2
+    And I click on the Share action of Demo Movie OGG - Big Bug Bunny Trailer.ogg
+    And In the share menu i hover over user2
+    Then I should see a "can edit" checkbox
+    And I should see an unshare action
+
+  Scenario Outline: unshare
+    And I hover over <filename>
+    When I click on the Share action of <filename>
+    And I am sharing this <filename> to user2
+    Then I should see the share with user icon within <filename>
+    And I click on the Share action of <filename>
+    And In the share menu i hover over user2
+    Then I should see a "can edit" checkbox
+    And I click on the unshare action
+    Then I should not see the username in the list of shared users
+
+  Examples:
+  | type   | filename                                         |
+  | file   | Demo Image - Northern Lights.jpg                 |
+
