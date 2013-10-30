@@ -1,3 +1,4 @@
+# encoding: utf-8
 #Feature: share files with link
 #  In order to collaborate with others
 #  As a user

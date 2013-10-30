@@ -1,3 +1,4 @@
+# encoding: utf-8
 Feature: share files with user
   In order to collaborate with other owncloud users
   As a user
