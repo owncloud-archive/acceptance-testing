@@ -4,10 +4,9 @@ Then(/^I should see a share with text input$/) do
   page.should have_css("#shareWith")
 end
 
-Given(/^I am sharing this file to user1$/) do
-  file = "Demo Movie OGG - Big Bug Bunny Trailer.ogg"
-  page.find(:xpath, "//tr[@data-file=\"#{file}\"]").hover
-  page.find(:xpath, "//tr[@data-file=\"#{file}\"]//a[@data-action=\"Share\"]").click
+Given(/^I am sharing this ([^"]*) to user2$/) do  | filename |
+  page.find(:xpath, "//tr[@data-file=\"#{filename}\"]").hover
+  page.find(:xpath, "//tr[@data-file=\"#{filename}\"]//a[@data-action=\"Share\"]").click
   fill_in "shareWith", :with => "user2"
   find('.ui-autocomplete').click
 end

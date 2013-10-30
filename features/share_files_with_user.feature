@@ -19,19 +19,28 @@ Feature: share files with user
       | file   | Demo Code - PHP.php                              |
       | file   | Demo Code - Python.py                            |
 
-  Scenario: share with a user
-    And I am sharing this file to user1
-    And I hover over Demo Movie OGG - Big Bug Bunny Trailer.ogg
+  Scenario Outline: share with a user
+    And I hover over <filename>
+    When I click on the Share action of <filename>
+    And I am sharing this <filename> to user2
     Then I should see the share with user icon
     And I should see the username in the list of shared users
 
-#  Scenario: list shared files
-#    Given I am logged in
-#    And I have shared some files
-#    When I go to the files app
-#    And I hover over a file shared with a user
-#    Then I should see the share with user icon
-#
+  Examples:
+  | type   | filename                                         |
+  | file   | Demo Movie OGG - Big Bug Bunny Trailer.ogg       |
+
+  Scenario Outline: list shared files
+    And I hover over <filename>
+    When I click on the Share action of <filename>
+    And I am sharing this <filename> to user2
+    Then I should see the share with user icon
+
+  Examples:
+  | type   | filename                                         |
+  | file   | Demo Code - PHP.php                              |
+  | file   | Demo Code - Python.py                            |
+
 #  Scenario: list unshared files
 #    Given I am logged in
 #    And I have shared some files
