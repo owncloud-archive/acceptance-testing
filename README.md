@@ -213,6 +213,10 @@ On a mac with homebrew you can do:
 
       $ brew install qt
 
+On Ubuntu its:
+      
+      $ sudo apt-get install qt4-default
+
 #Note on Patches/Pull Requests
 
 * Fork the project.
