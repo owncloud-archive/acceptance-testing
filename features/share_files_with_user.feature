@@ -31,7 +31,6 @@ Feature: share files with user
     And I go into the Shared Folder
     Then I should see the shared <filename>
 
-
   Examples:
   | type   | filename                                         |
   | file   | Demo Movie OGG - Big Bug Bunny Trailer.ogg       |
