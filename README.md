@@ -217,6 +217,11 @@ On Ubuntu its:
       
       $ sudo apt-get install qt4-default
 
+###Different vagrant box images included in the Vagrantfile
+
+There are different box images commented out in the Vagrantfile. Activate the one you need.
+E.g: For Jenkins on a 64Bit system Debian is preferred.
+
 #Note on Patches/Pull Requests
 
 * Fork the project.

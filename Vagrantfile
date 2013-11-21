@@ -25,11 +25,16 @@ Vagrant.configure("2") do |config|
     }
   }
 
-  # Use a debian wheezy box
-  #64Bit Host
+  # 64Bit Debian box
+  #config.vm.box = "debian-70rc1"
+  #config.vm.box_url = "http://puppet-vagrant-boxes.puppetlabs.com/debian-70rc1-x64-vbox4210.box"
+  # 32Bit Debian box
+  #config.vm.box = "wheezy32"
+  #config.vm.box_url = "http://tools.swergroup.com/downloads/wheezy32.box"
+  # 64Bit Ubuntu Host
   #config.vm.box = "precise-x64"
   #config.vm.box_url = "http://files.vagrantup.com/precise64.box"
-  #32Bit Host
+  # 32Bit Ubuntu Host
   config.vm.box = "precise-i386"
   config.vm.box_url = "http://files.vagrantup.com/precise32.box"
 
