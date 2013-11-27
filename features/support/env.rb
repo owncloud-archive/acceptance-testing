@@ -20,12 +20,27 @@ when "firefox"
     http_client.timeout = 200
     Capybara::Selenium::Driver.new(app, :browser => :firefox, :http_client => http_client)
   end
+
 when "webkit"
   require 'capybara-webkit'
   Capybara.default_driver = :webkit
   Capybara.javascript_driver = :webkit
-end
 
+when "poltergeist"
+    require 'capybara/poltergeist'
+ 
+    Capybara.default_driver = :poltergeist
+    Capybara.register_driver :poltergeist do |app|
+        options = {
+#            :js_errors => true,
+            :timeout => 120,
+            :debug => false,
+#            :phantomjs_options => ['--load-images=no', '--disk-cache=false'],
+            :inspector => true,
+        }
+        Capybara::Poltergeist::Driver.new(app, options)
+    end
+end
 
 #Headless switch
 headless = ENV['HEADLESS']
