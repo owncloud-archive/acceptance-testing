@@ -7,7 +7,7 @@ require 'ruby-debug'
 
 Encoding.default_internal = Encoding::UTF_8
 
-Capybara.default_wait_time = 5
+Capybara.default_wait_time = 6
 
 #Browser switch
 browser_type = ENV['BROWSER']

@@ -48,7 +48,7 @@ end
 
 #@my_action need refactoring
 When(/^I click on the new ([^"]*) action$/) do | action |
-    page.find(:xpath, "//li[@data-type=\"#{action}\"]").click
+    page.find(:xpath, "//li[@data-type=\"#{action}\"]/p").click
     @my_action = action
 end
 
