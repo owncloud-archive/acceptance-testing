@@ -28,7 +28,7 @@ To run the tests with vagrant you have to install virtualbox and xvfb.
 
 To keep the ownCloud repositories stable you should always test your code
 before pushing it. To ensure that your changes do not affect the rest of
-ownCloud you should run the accesptance test suite against your code on a
+ownCloud you should run the acceptance test suite against your code on a
 regular base.
 
 ##Running tests in your test environment
@@ -59,13 +59,13 @@ Cucumber expects to find the following environment:
 
 1. A clone of owncloud-core
 
-1. An admin account with the name "admin" and the password "admin"
+1. An admin account with the name "admin", the password "admin" and display name "Administrator"
 
-1. An user account with the name "user1" and the password "user1"
+1. An user account with the name "user1", the password "user1" and display name "User One"
 
-1. An user account with the name "user2" and the password "user2"
+1. An user account with the name "user2", the password "user2" and display name "User Two"
 
-1. An user account with the name "user3" and the password "user3"
+1. An user account with the name "user3", the password "user3" and display name "User Three"
 
 1. Users "user1" and "user2" are member of "group1"
 
