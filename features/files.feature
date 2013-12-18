@@ -23,7 +23,7 @@ Feature: files
       | mime                 | name                                             | bytes    | human    |
       | text/x-c             | Demo Code - C++.cc                               | 3066     | 3 kB     |
       | application/x-php    | Demo Code - PHP.php                              | 3705     | 3.6 kB   |
-      | text/x-script.phyton | Demo Code - Python.py                            | 875      | 875 B    |
+      | text/x-script.python | Demo Code - Python.py                            | 875      | 875 B    |
       | image/jpeg           | Demo Image - ccc.jpg                             | 166367   | 162.5 kB |
       | image/jpeg           | Demo Image - Laser Towards Milky Ways Centre.jpg | 315057   | 307.7 kB |
       | image/jpeg           | Demo Image - Northern Lights.jpg                 | 224246   | 219 kB   |
@@ -140,7 +140,7 @@ Feature: files
 #      | type   | mimetype             | filename                                         | size     | hsize    |
 #      | file   | text/x-c             | Demo Code - C++.cc                               | 3066     | 3 kB     |
 #      | file   | text/x-php           | Demo Code - PHP.php                              | 3705     | 3.6 kB   |
-#      | file   | text/x-script.phyton | Demo Code - Python.py                            | 875      | 875 B    |
+#      | file   | text/x-script.python | Demo Code - Python.py                            | 875      | 875 B    |
 #      | file   | image/jpeg           | Demo Image - ccc.jpg                             | 166367   | 162.5 kB |
 #      | file   | image/jpeg           | Demo Image - Laser Towards Milky Ways Centre.jpg | 315057   | 307.7 kB |
 #      | file   | image/jpeg           | Demo Image - Northern Lights.jpg                 | 224246   | 219 kB   |
