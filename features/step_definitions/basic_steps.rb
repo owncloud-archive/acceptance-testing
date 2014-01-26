@@ -41,3 +41,11 @@ Then(/^no error appears$/) do
   page.should_not have_selector('.oc-dialog')
   page.should_not have_selector('#notification')
 end
+
+Then(/^an error dialog appears$/) do
+  page.should have_selector('.oc-dialog')
+end
+
+Then(/^a notification appears$/) do
+  page.should have_selector('#notification')
+end

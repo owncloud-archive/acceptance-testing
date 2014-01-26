@@ -21,14 +21,41 @@ Feature: users
       | user2                | User Two                                         | group1   |
       | user3                | User Three                                       |          |
 
-  Scenario Outline: create a user
-	When I fill the user form with "<name>" and "<password>"
+  Scenario: create a user
+    Given user "newuser" does not exist
+	When I fill the user form with "newuser" and "p4$$W0rD!"
 	And I click create user
-	Then the list shows a user "<name>"
+	Then the list shows a user "newuser"
 	And no error appears
 
-    Examples:
-      | name                | password   |
-      | newuser             | test1234   |
-	  | anothernewuser      | p4$$W0rD!  |
+  Scenario: create a user that already exists
+	Given user "user1" exists
+	When I fill the user form with "user1" and "whatever"
+	And I click create user
+	Then an error dialog appears
+
+  Scenario: changing user details
+    Given user "newuser" exists
+	When I change the full name of user "newuser" to "Full Name"
+	Then user "newuser" should have the full name "Full Name" 
+	And no error appears
+
+  Scenario: setting user group
+	Given user "newuser" exists
+	And group "group1" exists
+	When I add user "newuser" to group "group1"
+    Then user "newuser" should be in group "group1"
+	And no error appears
+
+  Scenario: unsetting user group
+	Given user "newuser" is in group "group1"
+	When I remove user "newuser" from group "group1"
+    Then user "newuser" should not be in group "group1"
+	And no error appears
+
+  Scenario: delete a user
+    Given user "newuser" exists
+	When I click delete for user "newuser"
+	Then the list does not show a user "newuser"
+	And a notification appears
 
