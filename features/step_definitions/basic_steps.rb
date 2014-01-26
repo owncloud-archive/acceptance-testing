@@ -11,18 +11,15 @@ Given /^I am logged in$/ do
   fill_in 'password', with: "admin"
   click_button 'submit'
   #save_page
-  find('#settings').click
-  page.should have_selector('a#logout')
+  page.should have_selector('#header #settings')
 end
 
 When /^I am in the "([^"]*)" app$/ do |app|
   visit "/index.php?app=#{app}"
-  find('#settings').click
-  page.should have_selector('a#logout')
+  page.should have_selector('#header #settings')
 end
 
 When /^I go to "([^"]*)"$/ do |path|
   visit "#{path}"
-  find('#settings').click
-  page.should have_selector('a#logout')
+  page.should have_selector('#header #settings')
 end
