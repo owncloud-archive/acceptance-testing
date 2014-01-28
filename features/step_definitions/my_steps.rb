@@ -12,6 +12,5 @@ end
 
 Then /^I should be able to access my cloud$/ do
   visit '/'
-  find('#settings').click
-  page.should have_selector('a#logout')
+  page.should have_selector('#header #settings')
 end
