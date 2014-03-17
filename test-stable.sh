@@ -31,7 +31,7 @@ rvm use ruby-1.9.3-p194@oc_acceptance --create
 bundle install
 
 # setup Vagrant plugins
-VAGRANT_PLUGINS="omnibus berkshelf"
+VAGRANT_PLUGINS="vagrant-omnibus vagrant-berkshelf"
 
 for PLUGIN in $VAGRANT_PLUGINS
 do
