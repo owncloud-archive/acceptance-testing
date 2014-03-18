@@ -30,6 +30,17 @@ rvm use ruby-1.9.3-p194@oc_acceptance --create
 # let's assume bundler is installed
 bundle install
 
+# setup Vagrant plugins
+VAGRANT_PLUGINS="vagrant-omnibus vagrant-berkshelf"
+
+for PLUGIN in $VAGRANT_PLUGINS
+do
+	echo Checking for Vagrant plugin $PLUGIN
+	if ! vagrant plugin list | grep "$PLUGIN" > /dev/null 2>&1; then
+		vagrant plugin install "$PLUGIN"
+	fi
+done
+
 #
 # We need xvfb and virtual box. Check if these executables are in $PATH
 #
@@ -37,7 +48,7 @@ if [ ! `which xvfb-run` ]; then
   echo "You have to install xvfb in order to run the test suite"
   exit 1
 fi
-if [ ! `which vboxmanage` ]; then
+if [ ! `which vboxmanage || which VBoxManage` ]; then
   echo "You have to install virtualbox in order to run the test suite"
   exit 1
 fi
@@ -50,7 +61,7 @@ function run_tests {
 	#
 	# first start the vm(s)
 	#
-	vagrant up $VM_NAME
+	vagrant up $VM_NAME || echo "Failed to start VM" && exit 2
 
 	#
 	# Running the bdd test suite
