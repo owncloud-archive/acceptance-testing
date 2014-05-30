@@ -11,7 +11,7 @@ This repository contains two major components:
 
 
 For running the acceptance tests you have to setup rvm [1] and ruby. We
-recommend installing rvm in your homedirectory, but we support installing rvm
+recommend installing rvm in your home directory, but we support installing rvm
 system wide as well.
 
 After installing rvm, you have to install ruby 1.9.3
@@ -28,7 +28,7 @@ To run the tests with vagrant you have to install virtualbox and xvfb.
 
 To keep the ownCloud repositories stable you should always test your code
 before pushing it. To ensure that your changes do not affect the rest of
-ownCloud you should run the accesptance test suite against your code on a
+ownCloud you should run the acceptance test suite against your code on a
 regular base.
 
 ##Running tests in your test environment
